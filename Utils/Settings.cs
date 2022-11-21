@@ -47,6 +47,14 @@ namespace AddedFeats.Utils
                     .WithLongDescription(GetString("Settings.EnableFeature")));
             }
 
+            settings.AddSubHeader(GetString("Settings.Archetypes.Title"));
+            foreach (var (guid, name) in Guids.Archetypes)
+            {
+                settings.AddToggle(
+                  Toggle.New(GetKey(guid), defaultValue: true, GetString(name))
+                    .WithLongDescription(GetString("Settings.EnableFeature")));
+            }
+
             settings.AddSubHeader(GetString("Settings.Feats.Title"));
             foreach (var (guid, name) in Guids.Features)
             {

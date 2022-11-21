@@ -1,3 +1,152 @@
-[
+﻿[
+  {
+    "Key": "Spirit.Name",
+    "ProcessTemplates": false,
+    "enGB": "Spirit"
+  },
 
+  {
+    "Key": "Spirit.Description",
+    "ProcessTemplates": false,
+    "enGB": "A medium serves as a vessel to channel spirits—astral echoes of powerful souls from ages past that live on in myth and legend. Each day, a medium can channel a spirit through a ritual known as a seance. Seances take 1 hour to perform and require the medium's concentration. After 24 hours, the medium loses contact with the channeled spirit and can perform another seance. In addition to granting power to the medium, a channeled spirit can influence the medium. By channeling a spirit, the medium allows the spirit to gain 1 point of influence over him. If the medium loses that 1 point of influence, he loses contact with the spirit, though he is still unable to perform a new seance until the normal 24 hour period has elapsed since his last seance. When the spirit leaves after the 24-hour duration and before the next seance, the spirit's influence over the medium resets to 0. Certain abilities allow the medium to gain additional power in exchange for allowing the spirit more influence over him. When a spirit gains at least 3 points of influence over the medium, the dual impulses housed within the same body cause the medium to meld with his spirit's consciousness. The resulting muddled sense of self and struggle for control causes the medium to take a –2 penalty on initiative checks as well as a specific additional penalty listed in each spirit's entry. However, the spirit's mental presence grants the medium a +4 bonus against possession effects and a +2 bonus on saving throws against mind-affecting effects that are not related to possession. If a spirit ever attains 5 or more points of influence over the medium, the medium completely loses control to the spirit. He effectively becomes an NPC under the GM's control until after he awakens the next day with the spirit gone."
+  },
+  {
+    "Key": "SpiritPower.Name",
+    "ProcessTemplates": false,
+    "enGB": "Spirit Power"
+  },
+
+  {
+    "Key": "SpiritPower.Description",
+    "ProcessTemplates": false,
+    "enGB": "The medium gains the spirit's listed seance boon and lesser spirit power for 24 hours. The medium also gains the spirit's intermediate spirit power at 6th level, its greater spirit power at 11th level, and its supreme spirit power at 17th level."
+  },
+  {
+    "Key": "SpiritPowerLesser.Name",
+    "ProcessTemplates": false,
+    "enGB": "Spirit Power - Lesser"
+  },
+
+  {
+    "Key": "SpiritPowerLesser.Description",
+    "ProcessTemplates": false,
+    "enGB": "The medium gains the following listed seance boon and lesser spirit power for 24 hours based on the spirit channeled:\n\nArchmage: Archmage Arcana (Lesser, Su): Instead of your normal spells per day for your medium level, you use the spells per day from Table: Mesmerist. For each level of spell you can now cast (including level 0), each time you channel an archmage spirit, select a single spell of that level from the sorcerer/wizard spell list to add to your medium spell list and spells known until you lose contact with the archmage. When you cast these spells, they count as arcane (though not for the purpose of fulfilling prerequisites), and thus you must provide verbal and somatic components instead of thought and emotion components.\n\nChampion: Champion’s Prowess (Lesser, Su): You gain proficiency in all martial weapons and in one exotic weapon of your choice, Which you choose each time you channel a champion spirit.\n\nGuardian: Guardian’s Shield (Lesser, Su): You gain proficiency in heavy armors and shields (including tower shields).\n\nHierophant: Divine Surge (Lesser, Su): This power functions as the archmage arcana spirit power, except that you add spells from the cleric/oracle list instead of the sorcerer/wizard list (these spells count as divine).\n\nMarshal: Marshal’s Order (Lesser, Su): You can use your spirit surge on attack rolls, saving throws, ability checks, concentration checks, and skill checks rolled by you or any allies who participated in your seance as long as you have line of sight and line of effect, and are within 30 feet of the chosen ally.\n\nTrickster: Trickster’s Edge (Lesser, Su): Choose any two skills. These skills count as class skills for you, and you are treated as if you had an additional number of ranks in those skills equal to your medium level (to a maximum of your character level)."
+  },
+  {
+    "Key": "SpiritPowerIntermediate.Name",
+    "ProcessTemplates": false,
+    "enGB": "Spirit Power - Intermediate"
+  },
+
+  {
+    "Key": "SpiritPowerIntermediate.Description",
+    "ProcessTemplates": false,
+    "enGB": "The medium gains the following listed seance boon and lesser spirit power for 24 hours based on the spirit channeled:\n\nArchmage: Arcane Surge (Intermediate, Su): You can allow the archmage spirit to gain 1 point of influence over you in order to cast one of your medium spells known without expending a spell slot. When you do so, the caster level and DC of the spell increase by 1, and you can’t apply metamagic to the spell.\n\nChampion: Sudden Attack (Intermediate, Su): Whenever you take a full-attack action, you gain one additional attack at your highest base attack bonus. This ability stacks with the extra attack from haste, but it doesn’t stack with special actions that grant extra attacks, such as flurry of blows or spell combat. Sudden attack works as normal with full-attack options such as twoweapon fighting.\n\nGuardian: Absorb Blow (Intermediate, Su): You gain DR/— and resistance to acid, cold, electricity, fire, and sonic equal to 1/2 your medium level. Add paladin’s sacrifice to your medium spells known as a 2nd-level spell.\n\nHierophant: Energy Font (Intermediate, Su): You can channel energy a number of times per day equal to 1 + your Charisma modifier. Choose whether you channel positive or negative energy each time you contact a hierophant spirit; this choice must match the spirit’s faith. If you choose positive energy, add cure spells of each level you can cast from the cleric list to your medium spell list and spells known. Otherwise, add inflict spells in the same way. These spells count as divine, as in the divine surge spirit power.\n\nMarshal: Inspiring Call (Intermediate, Su): As a standard action, you can grant all allies who can see and hear you a competence bonus equal to your spirit bonus on either saving throws or attack and damage rolls. You choose which bonus to grant each time you use inspiring call. This ability lasts for 1 round. If you have the decisive strike greater spirit power, you can use inspiring call as a move action. If you have the legendary marshal supreme spirit power, you can use inspiring call as a swift action.\n\nTrickster: Surprise Strike (Intermediate, Su): When you attack an opponent that’s denied its Dexterity bonus to AC, you deal 1d6 points of extra precision damage for every 3 medium levels. Your target counts as flat-footed against the first attack you make against that target in a day, regardless of abilities like uncanny dodge. After your first attack, that target is immune to being made flat-footed by your surprise strike for 24 hours."
+  },
+  {
+    "Key": "SpiritPowerGreater.Name",
+    "ProcessTemplates": false,
+    "enGB": "Spirit Power - Greater"
+  },
+
+  {
+    "Key": "SpiritPowerGreater.Description",
+    "ProcessTemplates": false,
+    "enGB": "The medium gains the following listed seance boon and lesser spirit power for 24 hours based on the spirit channeled:\n\nArchmage: Wild Arcana (Greater, Su): You can allow the archmage spirit to gain 1 point of influence over you in order to cast any sorcerer/wizard spell of a level you can cast. You must expend a spell slot of the appropriate level, and you can’t apply metamagic to the spell.\n\nChampion: Fleet Charge (Greater, Su): You can take a swift action and a full-round action to move up to your speed and then make a full attack. This special action doesn’t combine with sudden attack, but works as normal with effects such as haste and two-weapon fighting. As soon as you begin moving, you are considered to have begun the full-round action, even if circumstances prevent you from attacking at the end of your movement.\n\nGuardian: Sudden Block (Greater, Su): After an enemy’s attack would hit you or an adjacent creature, you can use spirit surge to increase the victim’s AC, possibly causing the attack to fail, by rolling your spirit surge die and adding it to the chosen character’s AC. You must not be flat-footed, and you must be aware of the attack. If use of this ability causes the enemy’s attack to miss, you can make an attack at your highest base attack bonus against that enemy as an immediate action.\n\nHierophant: Overflowing Grace (Greater, Su): When you heal a creature to full hit points or a creature already at full hit points with your positive or negative energy, that creature gains a +1 sacred bonus on attack rolls, skill checks, ability checks, and saving throws for 1 round. The bonus is sacred if you use positive energy and profane if you use negative energy. If you destroy or kill one or more creatures with positive or negative energy, you gain a +1 bonus of the same type on attack rolls, skill checks, ability checks, and saving throws for 1 round.\n\nMarshal: Decisive Strike (Greater, Su): You can allow the marshal to gain 1 point of influence over you as a swift action to allow an ally within 30 feet who can see and hear you to make a single melee or ranged attack during your turn. You can use this ability as a standard action to instead allow the ally to perform any standard action.\n\nTrickster: Transfer Magic (Greater, Su): You can allow the trickster to gain 1 point of influence over you to make a melee touch attack against another creature as a standard action. If the attack succeeds, you randomly steal one of the harmless spells of the highest spell level active on that creature, ending the effect for the original creature and gaining all remaining duration for yourself. This ability does not work on personal range or instantaneous- or permanent-duration spells."
+  },
+  {
+    "Key": "SpiritPowerSupreme.Name",
+    "ProcessTemplates": false,
+    "enGB": "Spirit Power - Supreme"
+  },
+
+  {
+    "Key": "SpiritPowerSupreme.Description",
+    "ProcessTemplates": false,
+    "enGB": "The medium gains the following listed seance boon and lesser spirit power for 24 hours based on the spirit channeled:\n\nArchmage: Legendary Archmage (Supreme, Su): Once per day, you can cast any spell on the sorcerer/wizard spell list as if using the wild arcana ability, except the archmage doesn’t gain 1 point of influence over you, the spell doesn’t require a spell slot, and you can select a spell of any level.\n\nChampion: Legendary Champion (Supreme, Su): You gain two combat feats of your choice, and you can choose different feats each time you channel a champion spirit. You can treat your base attack bonus from your medium levels as equal to your medium level for the purposes of qualifying for combat feats and determining their effects, and you can count your medium levels as levels of one other class whose base attack bonus equals its class level (such as fighter, barbarian, or slayer) for the purpose of qualifying for the two new combat feats.\n\nGuardian: Legendary Guardian (Supreme, Su): Once per day as an immediate action, you can ignore the effects of a single attack against you, including enemy spells targeting you or whose area or effect includes you. The attack affects other creatures as normal.\n\nHierophant: Legendary Hierophant (Supreme, Su): Once per day, You can request a minor miracle. This request must be in line with the options for miracle that don’t cost powdered diamond. As usual for a miracle, the deity or other being the spirit worships can choose whether or not to grant the request at its whim.\n\nMarshal: Legendary Marshal (Supreme, Su): You can use a lesser spirit surge without incurring influence. This lesser surge adds a maximum of 1d6 to the roll and does not apply your spirit bonus, regardless of other effects or abilities you have that alter your spirit surge. A lesser surge still counts as a spirit surge for the purpose of the limit of one spirit surge per round, but it does not consume any free uses of spirit surge you may have from effects such as taboo.\n\nTrickster: Legendary Trickster (Supreme, Su): Once per day, instead of rolling for a skill check, you can choose your d20 result. Additionally, you gain the ability to change form at will as if using greater polymorph, except that you can mimic the form of a specific individual."
+  },
+  {
+    "Key": "Archmage.Name",
+    "ProcessTemplates": false,
+    "enGB": "Spirit - Archmage"
+  },
+  {
+    "Key": "Archmage.Description",
+    "ProcessTemplates": false,
+    "enGB": ""
+  },
+  {
+    "Key": "Champion.Name",
+    "ProcessTemplates": false,
+    "enGB": "Spirit - Champion"
+  },
+  {
+    "Key": "Champion.Description",
+    "ProcessTemplates": false,
+    "enGB": ""
+  },
+  {
+    "Key": "Guardian.Name",
+    "ProcessTemplates": false,
+    "enGB": "Spirit - Guardian"
+  },
+  {
+    "Key": "Guardian.Description",
+    "ProcessTemplates": false,
+    "enGB": ""
+  },
+  {
+    "Key": "Hierophant.Name",
+    "ProcessTemplates": false,
+    "enGB": "Spirit - Hierophant"
+  },
+  {
+    "Key": "Hierophant.Description",
+    "ProcessTemplates": false,
+    "enGB": ""
+  },
+  {
+    "Key": "Marshal.Name",
+    "ProcessTemplates": false,
+    "enGB": "Spirit - Marshal"
+  },
+  {
+    "Key": "Marshal.Description",
+    "ProcessTemplates": false,
+    "enGB": ""
+  },
+  {
+    "Key": "Trickster.Name",
+    "ProcessTemplates": false,
+    "enGB": "Spirit - Trickster"
+  },
+  {
+    "Key": "Trickster.Description",
+    "ProcessTemplates": false,
+    "enGB": ""
+  },
+
+
+  {
+    "Key": "SpiritBonus.Name",
+    "ProcessTemplates": false,
+    "enGB": "Spirit Bonus"
+  },
+
+  {
+    "Key": "SpiritBonus.Description",
+    "ProcessTemplates": false,
+    "enGB": "When a medium channels a spirit, he gains a bonus on certain checks and to certain statistics, depending on the spirit. A 1st-level medium's spirit bonus is +1; it increases by 1 at 4th level and every 4 levels thereafter."
+  },
+  {
+    "Key": "MediumProficiencies.Name",
+    "ProcessTemplates": false,
+    "enGB": "Medium Proficiencies"
+  },
+
+  {
+    "Key": "MediumProficiencies.Description",
+    "ProcessTemplates": false,
+    "enGB": "Mediums are proficient with all simple {g|Encyclopedia:Weapon_Proficiency}weapons{/g}, light armor, and medium armor. A medium can cast {g|Encyclopedia:Spell}spells{/g} while wearing armor."
+  }
 ]

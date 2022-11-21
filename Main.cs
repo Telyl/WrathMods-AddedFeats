@@ -10,9 +10,11 @@ using static UnityModManagerNet.UnityModManager.ModEntry;
 using AddedFeats.Utils;
 using Kingmaker.PubSubSystem;
 using AddedFeats.Homebrew;
+using AddedFeats.NewClasses;
 
 namespace AddedFeats
 {
+    [EnableReloading]
     public static class Main
     {
         public static bool Enabled;
@@ -23,6 +25,7 @@ namespace AddedFeats
         {
             try
             {
+                modEntry.OnUnload = Unload;
                 var harmony = new Harmony(modEntry.Info.Id);
                 harmony.PatchAll();
 
@@ -33,6 +36,20 @@ namespace AddedFeats
             catch (Exception e)
             {
                 Logger.LogException("Failed to patch", e);
+            }
+            return true;
+        }
+
+        static bool Unload(UnityModManager.ModEntry modEntry)
+        {
+            try
+            {
+                var harmony = new Harmony(modEntry.Info.Id);
+                harmony.UnpatchAll();
+            }
+            catch (Exception e)
+            {
+                Logger.LogException("Failed to unload.", e);
             }
             return true;
         }
@@ -87,6 +104,8 @@ namespace AddedFeats
                     // First strings
                     LocalizationTool.LoadEmbeddedLocalizationPacks(
                       "AddedFeats.Strings.Homebrew.json",
+                      "AddedFeats.Strings.Archetypes.json",
+                      "AddedFeats.Strings.ClassFeatures.json",
                       "AddedFeats.Strings.Features.json",
                       "AddedFeats.Strings.Settings.json",
                       "AddedFeats.Strings.Spells.json");
@@ -95,6 +114,7 @@ namespace AddedFeats
                     Settings.Init();
 
                     ConfigureHomebrew();
+                    ConfigureArchetypes();
                     ConfigureFeats();
                     ConfigureSpells();
                 }
@@ -111,6 +131,7 @@ namespace AddedFeats
             private static void ConfigureArchetypes()
             {
                 Logger.Log("Configuring archetypes.");
+                MediumClass.Configure();
             }
             private static void ConfigureClassFeats()
             {

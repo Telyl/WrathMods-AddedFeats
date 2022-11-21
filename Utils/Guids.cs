@@ -1,6 +1,7 @@
 using AddedFeats.Feats;
 using AddedFeats.NewSpells;
 using AddedFeats.Homebrew;
+using AddedFeats.NewClasses;
 using Kingmaker.Utility;
 using System;
 using System.Collections.Generic;
@@ -357,6 +358,100 @@ namespace AddedFeats.Utils
           new (string, string)[]
           {
               (MythicAnimalFocus, Homebrew.MythicAnimalFocus.DisplayName),
+          };
+        #endregion
+
+        #region Classes
+        internal const string MediumClass = "16286dce-e3f1-443d-8115-01b4eec9e573";
+        internal const string MediumProgression = "44225dce-e4a1-323d-8115-01b4eec9e573";
+        #region ClassFeatures
+        internal const string MediumProficiencies = "dff857a6-a36a-4157-b03d-c215c27e4453";
+        // These are the checked facts we'll use to specify what spirits give
+        internal const string SpiritBonusFeat = "6a980493-120b-4fc5-b815-6745ac1a2591";
+        internal const string SpiritPowerFeat = "928fad09-830c-45bf-9592-432c8a90dba9";
+        internal const string SpiritPowerLesser = "2b0b15b3-3239-478e-ac3d-bc68ce92422e";
+        internal const string SpiritPowerIntermediate = "f35312b6-35fa-4539-93dc-16f40e9869c9";
+        internal const string SpiritPowerGreater = "4e1d1a41-f1e9-47ef-9f37-8b207d6a285b";
+        internal const string SpiritPowerSupreme = "e0fdbd93-9065-4154-a5a0-d9626ec3fb91";
+
+        internal const string Spirit = "83526df9-0098-4033-9fee-4024c3d98b42";
+        internal const string SpiritResource = "8736afac-b620-4c94-8f55-a7210b150f59";
+
+        internal const string Influence = "ae0805ec-035a-4ddf-8deb-15a9c448b7b5";
+        internal const string InfluenceAbility = "f7642df8-8a73-467b-af80-d03e851d18ed";
+
+        internal const string Archmage = "6fbf6bc5-644c-4fb7-83d6-455b05e44647";
+        internal const string ArchmageSeance = "5d38425a-21c1-403f-8033-a50f918fa5db";
+        internal const string ArchmageSpiritBonus = "eb27b743-578f-424f-a06c-3ee5bb2ac5ad";
+        internal const string ArchmageSpiritPowers = "6eb13ba8-94af-4a2c-80c9-228f2206a3f4";
+        internal const string ArchmageSpiritPowerLesser = "578ff166-f46b-4789-af49-aa4141ffb820";
+        internal const string ArchmageSpiritPowerIntermediate = "4835e8e8-ca56-4fc8-85a0-2cb41ef01406";
+        internal const string ArchmageSpiritPowersGreater = "f60817f1-65e8-4a7e-bee7-0738842f23a0";
+        internal const string ArchmageSpiritPowersSupreme = "bf24acce-1c48-4ea1-9770-91684ec357f7";
+        internal const string ArchmageSpiritInfluencePenalty = "493bd8da-c8d9-43cd-bac5-a05289eb5eb2";
+        internal const string ArchmageTaboo = "d5eafaf8-df45-4990-aeff-2a2b5ed36360";
+
+        internal const string Champion = "ecbb07f4-5d48-40e5-a69a-6f02d57ac5c6";
+        internal const string ChampionSeance = "c20d10ea-0982-47b3-a11d-120bb1ef2e6b";
+        internal const string ChampionSpiritBonus = "08bb818b-81d9-4116-8812-fb52e7ca28b6";
+        internal const string ChampionSpiritPowers = "f3d707c6-0c64-4377-b4fe-eaa48d777fa2";
+        internal const string ChampionSpiritPowerLesser = "80472009-c1db-46d5-878c-98cef0860f98";
+        internal const string ChampionSpiritPowerIntermediate = "94a8f296-9690-42f5-9210-26b97befcaee";
+        internal const string ChampionSpiritPowersGreater = "b7982265-6bf0-4e26-bc7a-aafec7f28e86";
+        internal const string ChampionSpiritPowersSupreme = "2f755d30-747a-464a-b672-65a91b211a69";
+        internal const string ChampionSpiritInfluencePenalty = "60956fcc-ae0e-4e40-afd3-d59c1d546cf9";
+        internal const string ChampionTaboo = "e207d624-11f0-4eb3-80d4-9c33d0ab62ed";
+
+        internal const string Guardian = "e3682110-f38a-4583-9317-564dbbf44439";
+        internal const string GuardianSeance = "a2ba9126-859b-4d8a-bea5-849646542831";
+        internal const string GuardianSpiritBonus = "136658fc-868d-4bf0-a1db-f8f67243787d";
+        internal const string GuardianSpiritPowers = "435b6c17-bb04-4be4-8de7-2c2aecd02b21";
+        internal const string GuardianSpiritPowerLesser = "bcc2b789-805b-436e-9527-77fd3f8b8d75";
+        internal const string GuardianSpiritPowerIntermediate = "d3763788-4530-45b2-b40b-297ae47a1c9e";
+        internal const string GuardianSpiritPowersGreater = "05098285-c6dd-41b6-ba86-8357d475059d";
+        internal const string GuardianSpiritPowersSupreme = "87ea7c10-79ed-420a-9791-ac1ac29bd18d";
+        internal const string GuardianSpiritInfluencePenalty = "c93cbdbd-f244-4f78-8024-01554c118dd8";
+        internal const string GuardianTaboo = "c8a6d284-1b90-4b2e-9c94-66f9a7c832d3";
+
+        internal const string Hierophant = "644c5fc7-e37e-42fe-a4bc-bf08dc2fa01f";
+        internal const string HierophantSeance = "22605cbf-44d2-44dd-bedb-9f2107df6f7c";
+        internal const string HierophantSpiritBonus = "44cf0ea3-d54a-4a32-a22d-f6dcfe5c68c1";
+        internal const string HierophantSpiritPowers = "efb5b595-f127-4d07-ac94-6efa36dabe0a";
+        internal const string HierophantSpiritPowerLesser = "20743ff1-5c8a-431d-a8f5-0bda91a81b5f";
+        internal const string HierophantSpiritPowerIntermediate = "05a129be-2da9-401c-b3d6-b4bfea6db458";
+        internal const string HierophantSpiritPowersGreater = "40e4c0b5-6581-4aec-9d60-f8fcb356009b";
+        internal const string HierophantSpiritPowersSupreme = "9ad1326b-171a-4efd-8a0f-4c84998a80ab";
+        internal const string HierophantSpiritInfluencePenalty = "762c1d05-f24d-4472-b4b2-916da84bfa61";
+        internal const string HierophantTaboo = "987ff22c-87a1-494b-a246-8e67cc4f2080";
+
+        internal const string Marshal = "b81e9bee-bab7-4fa7-8b5d-92c214dcf553";
+        internal const string MarshalSeance = "2a886c23-3c35-4861-9c41-f83ef7010fe5";
+        internal const string MarshalSpiritBonus = "71f5135e-e7c4-4c51-a2cd-f0da58ce80e9";
+        internal const string MarshalSpiritPowers = "5aec6b40-edd9-473d-90eb-65ca3fe80efd";
+        internal const string MarshalSpiritPowerLesser = "2dfa6298-f5f6-4626-a7ae-af055577191c";
+        internal const string MarshalSpiritPowerIntermediate = "f8d0da23-e0e5-4b29-bfea-850e051f8f71";
+        internal const string MarshalSpiritPowersGreater = "7227c103-261d-4edb-8656-da401a9bbdb8";
+        internal const string MarshalSpiritPowersSupreme = "ef9431bd-92bf-40f6-b42a-a73b97cc1b8b";
+        internal const string MarshalSpiritInfluencePenalty = "56988226-9ea1-4997-8e50-92e0ab2e99d3";
+        internal const string MarshalTaboo = "51824956-52c4-49e7-a7ab-09edc0593ef1";
+
+        internal const string Trickster = "856499e9-37af-4896-a250-fb2793e3ec0b";
+        internal const string TricksterSeance = "d7f89ebb-23e8-4dbc-b12e-09be1257a33b";
+        internal const string TricksterSpiritBonus = "cb0aef0f-af43-424e-a6da-4ee147faef7a";
+        internal const string TricksterSpiritPowers = "9d39c747-74c8-40d8-ad8a-e5b3aea53c51";
+        internal const string TricksterSpiritPowerLesser = "dc907001-c837-47f0-9289-de37153a5f64";
+        internal const string TricksterSpiritPowerIntermediate = "32fa73e7-9c39-4b8c-8199-27ba0a1fde86";
+        internal const string TricksterSpiritPowersGreater = "b28ffeeb-c942-4b74-980e-a9a070eae947";
+        internal const string TricksterSpiritPowersSupreme = "9af14132-a973-4d60-8eaa-108996cdbbe3";
+        internal const string TricksterSpiritInfluencePenalty = "530ba9b1-f966-42d2-a202-9af6ff6b86bf";
+        internal const string TricksterTaboo = "33cfdc8e-c0ba-4262-a6f5-d04032c3948d";
+
+        #endregion
+
+        internal static readonly (string guid, string displayName)[] Archetypes =
+          new (string, string)[]
+          {
+              (MediumClass, NewClasses.MediumClass.DisplayName),
           };
         #endregion
 

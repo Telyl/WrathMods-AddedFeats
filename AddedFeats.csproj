@@ -120,6 +120,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="MechanicsChanges\" />
     <Folder Include="NewControllers\" />
   </ItemGroup>
 

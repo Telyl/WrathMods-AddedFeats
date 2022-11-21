@@ -1,3 +1,13 @@
 [
+  {
+    "Key": "MediumClass.Name",
+    "ProcessTemplates": false,
+    "enGB": "Medium"
+  },
 
+  {
+    "Key": "MediumClass.Description",
+    "ProcessTemplates": false,
+    "enGB": "Mediums channel spirits into themselves, using their own bodies as vessels for astral entities spawned from myths and legends. A medium balances his need for the spirits' power with the danger of allowing such beings influence over his mind."
+  }
 ]
