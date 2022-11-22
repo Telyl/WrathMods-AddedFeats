@@ -24,20 +24,20 @@ using Kingmaker.UnitLogic.Buffs.Blueprints;
 namespace AddedFeats.NewComponents
 {
     [AllowedOn(typeof(BlueprintUnitFact))]
-    [TypeId("c5fd93e94da6492b866ec4f50f6b7934")]
+    [TypeId("810315ddbaa14de48b1841e88e3b140a")]
     public class AddSpiritSurgeTrickster : UnitFactComponentDelegate,
         IInitiatorRulebookHandler<RuleCalculateAbilityParams>,
-        IRulebookHandler<RuleCalculateAbilityParams>, IInitiatorRulebookHandler<RuleAttackRoll>,
-        IRulebookHandler<RuleAttackRoll>,
+        IRulebookHandler<RuleCalculateAbilityParams>, 
+        IInitiatorRulebookHandler<RuleSkillCheck>, IRulebookHandler<RuleSkillCheck>,
+        IInitiatorRulebookHandler<RuleSavingThrow>, IRulebookHandler<RuleSavingThrow>,
         ISubscriber,
         IInitiatorRulebookSubscriber
     {
 
         private static readonly ModLogger Logger = Logging.GetLogger("AddSpiritSurgeTrickster");
-        
+
         private DiceFormula? SurgeDice;
-        private int DiceVal;
-        private ModifiableValue.Modifier SpiritSurgeValue; 
+        private TimeSpan reduce1min = new TimeSpan(0, 0, 1, 0, 0);
         private static BlueprintUnitFact _spiritSurge;
         private static BlueprintUnitFact SpiritSurge
         {
@@ -61,49 +61,47 @@ namespace AddedFeats.NewComponents
         public void OnEventAboutToTrigger(RuleCalculateAbilityParams evt)
         {
             UnitEntityData caster = evt.Reason.Caster;
-            if(caster.Descriptor.HasFact(SpiritSurge))
+            if (caster.Descriptor.HasFact(SpiritSurge) && caster.Descriptor.HasFact(TricksterSpirit))
             {
                 var spiritsurgeranks = caster.Descriptor.Progression.Features.GetRank(BlueprintTool.Get<BlueprintFeature>(Guids.SpiritSurge));
-                switch(spiritsurgeranks)
+                SurgeDice = spiritsurgeranks switch
                 {
-                    case 1: SurgeDice = new DiceFormula(1, DiceType.D6); DiceVal = 6;
-                        break;
-                    case 2: SurgeDice = new DiceFormula(1, DiceType.D8); DiceVal = 8;
-                        break;
-                    case 3: SurgeDice = new DiceFormula(1, DiceType.D10); DiceVal = 10;
-                        break;
-                    case 4: SurgeDice = new DiceFormula(2, DiceType.D8); DiceVal = 16;
-                        break;
-                    default: SurgeDice = null; DiceVal = 0; break;
-                }
-                Logger.Log($"Formula: {SurgeDice} DiceMax: {DiceVal}");
+                    1 => new DiceFormula(1, DiceType.D6),
+                    2 => new DiceFormula(1, DiceType.D8),
+                    3 => new DiceFormula(1, DiceType.D10),
+                    4 => new DiceFormula(2, DiceType.D8),
+                    _ => null
+                };
             }
-
         }
         public void OnEventDidTrigger(RuleCalculateAbilityParams evt)
         {
             
         }
 
-        public void OnEventAboutToTrigger(RuleAttackRoll evt)
+        public void OnEventAboutToTrigger(RuleSkillCheck evt)
         {
-            // If spirit is champion, blah blah blah.
-            UnitEntityData caster = evt.Reason.Caster;
-            //if(caster.HasFact(SpiritSurge) & caster.HasFact()
+            if (!evt.StatType.IsSkill()) { return; }
+            if (SurgeDice == null) { return; }
             evt.AddModifier(bonus: RulebookEvent.Dice.D(SurgeDice.GetValueOrDefault()),
-                                     descriptor: ModifierDescriptor.Other,
-                                     source: evt.Reason.Caster.Facts.Get(SpiritSurge));
-            TimeSpan reduce1min = new TimeSpan(0, 0, 1, 0, 0);
+                            descriptor: ModifierDescriptor.UntypedStackable,
+                            source: evt.Reason.Caster.Facts.Get(SpiritSurge));
             evt.Reason.Caster.Buffs.GetBuff(BlueprintTool.Get<BlueprintBuff>(Guids.SpiritSurgeBuff)).ReduceDuration(reduce1min);
         }
 
-        public void OnEventDidTrigger(RuleAttackRoll evt)
-        {
+        public void OnEventDidTrigger(RuleSkillCheck evt) { }
 
+        public void OnEventAboutToTrigger(RuleSavingThrow evt)
+        {
+            if (evt.StatType != StatType.SaveReflex) { return; }
+            if (SurgeDice == null) { return; }
+            evt.AddModifier(bonus: RulebookEvent.Dice.D(SurgeDice.GetValueOrDefault()),
+                            descriptor: ModifierDescriptor.UntypedStackable,
+                            source: evt.Reason.Caster.Facts.Get(SpiritSurge));
+            evt.Reason.Caster.Buffs.GetBuff(BlueprintTool.Get<BlueprintBuff>(Guids.SpiritSurgeBuff)).ReduceDuration(reduce1min);
         }
 
-        //[SerializeField]
-        //public BlueprintFeatureReference SpiritSurge;
+        public void OnEventDidTrigger(RuleSavingThrow evt) { }
     }
 }
 

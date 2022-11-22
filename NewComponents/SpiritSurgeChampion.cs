@@ -25,7 +25,7 @@ using Kingmaker.RuleSystem.Rules.Damage;
 namespace AddedFeats.NewComponents
 {
     [AllowedOn(typeof(BlueprintUnitFact))]
-    [TypeId("c5fd93e94da6492b866ec4f50f6b7934")]
+    [TypeId("7acc6879834a471aa5b7281b798d3846")]
     public class AddSpiritSurgeChampion : UnitFactComponentDelegate,
         IInitiatorRulebookHandler<RuleCalculateAbilityParams>, IRulebookHandler<RuleCalculateAbilityParams>, 
         IInitiatorRulebookHandler<RuleAttackRoll>,IRulebookHandler<RuleAttackRoll>, 
@@ -74,7 +74,6 @@ namespace AddedFeats.NewComponents
                     _ => null
                 };
             }
-
         }
         public void OnEventDidTrigger(RuleCalculateAbilityParams evt){ }
 
