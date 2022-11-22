@@ -33,18 +33,21 @@ namespace AddedFeats.NewClasses
             BlueprintFeature spiritbonus = SpiritBonus.ConfigureEnabled();
             BlueprintFeature spiritpower = SpiritPower.ConfigureEnabled();
             BlueprintFeature spirit = Spirit.ConfigureEnabled();
+            BlueprintFeature spiritsurge = SpiritSurge.ConfigureEnabled();
             
 
             var entries = LevelEntryBuilder.New()
-                .AddEntry(1, spiritbonus, mediumproficiencies, spirit, spiritpower)
+                .AddEntry(1, spiritbonus, mediumproficiencies, spirit, spiritpower, spiritsurge)
                 .AddEntry(4, spiritbonus)
                 .AddEntry(6, spiritpower)
                 .AddEntry(8, spiritbonus)
+
+                .AddEntry(10, spiritsurge)
                 .AddEntry(11, spiritpower)
                 .AddEntry(12, spiritbonus)
                 .AddEntry(16, spiritbonus)
                 .AddEntry(17, spiritpower)
-                .AddEntry(20, spiritbonus);
+                .AddEntry(20, spiritbonus, spiritsurge);
 
             return ProgressionConfigurator.New(ProgressionName, Guids.MediumProgression)
                 .SetAllowNonContextActions(false)

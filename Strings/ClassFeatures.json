@@ -11,6 +11,17 @@
     "enGB": "A medium serves as a vessel to channel spirits—astral echoes of powerful souls from ages past that live on in myth and legend. Each day, a medium can channel a spirit through a ritual known as a seance. Seances take 1 hour to perform and require the medium's concentration. After 24 hours, the medium loses contact with the channeled spirit and can perform another seance. In addition to granting power to the medium, a channeled spirit can influence the medium. By channeling a spirit, the medium allows the spirit to gain 1 point of influence over him. If the medium loses that 1 point of influence, he loses contact with the spirit, though he is still unable to perform a new seance until the normal 24 hour period has elapsed since his last seance. When the spirit leaves after the 24-hour duration and before the next seance, the spirit's influence over the medium resets to 0. Certain abilities allow the medium to gain additional power in exchange for allowing the spirit more influence over him. When a spirit gains at least 3 points of influence over the medium, the dual impulses housed within the same body cause the medium to meld with his spirit's consciousness. The resulting muddled sense of self and struggle for control causes the medium to take a –2 penalty on initiative checks as well as a specific additional penalty listed in each spirit's entry. However, the spirit's mental presence grants the medium a +4 bonus against possession effects and a +2 bonus on saving throws against mind-affecting effects that are not related to possession. If a spirit ever attains 5 or more points of influence over the medium, the medium completely loses control to the spirit. He effectively becomes an NPC under the GM's control until after he awakens the next day with the spirit gone."
   },
   {
+    "Key": "SpiritSurge.Name",
+    "ProcessTemplates": false,
+    "enGB": "Spirit Surge"
+  },
+
+  {
+    "Key": "SpiritSurge.Description",
+    "ProcessTemplates": false,
+    "enGB": "A medium can allow his spirit to gain 1 additional point of influence over him in order to add 1d6 to a value modified by his spirit bonus.\n The medium must be conscious and aware to use this ability. At 10th level, the medium’s spirit surge die increases to 1d8, and at 20th level it increases to 1d10. The duration of this ability decreases by 1 minute for each time the spirit modifies a check."
+  },
+  {
     "Key": "SpiritPower.Name",
     "ProcessTemplates": false,
     "enGB": "Spirit Power"

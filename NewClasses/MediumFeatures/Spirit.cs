@@ -39,8 +39,6 @@ namespace AddedFeats.NewClasses.MediumFeatures
         public static BlueprintFeature ConfigureEnabled()
         {
 
-            
-
             BlueprintAbilityResource resources = AbilityResourceConfigurator.New(FeatName + "Resource", Guids.SpiritResource)
                 .SetMaxAmount(ResourceAmountBuilder.New(2).Build())
                 .SetMin(0)

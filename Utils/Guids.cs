@@ -376,6 +376,10 @@ namespace AddedFeats.Utils
 
         internal const string Spirit = "83526df9-0098-4033-9fee-4024c3d98b42";
         internal const string SpiritResource = "8736afac-b620-4c94-8f55-a7210b150f59";
+        internal const string SpiritSurge = "a9b28d81-e097-4abe-8a2a-8ac324df75e2";
+        internal const string SpiritSurgeProgression = "b9b28d81-e097-4abe-8a2a-8ac324df75e2";
+        internal const string SpiritSurgeAbility = "21cb8367-480a-4884-ab72-8c322def6b9e";
+        internal const string SpiritSurgeBuff = "8fe3a357-5f25-4729-b3b7-c53212cf1e25";
 
         internal const string Influence = "ae0805ec-035a-4ddf-8deb-15a9c448b7b5";
         internal const string InfluenceAbility = "f7642df8-8a73-467b-af80-d03e851d18ed";

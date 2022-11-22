@@ -65,7 +65,7 @@
       <HintPath>$(WrathPath)\Wrath_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="ModMenu">
-      <HintPath>D:\Steam\steamapps\common\Pathfinder Second Adventure\Mods\ModMenu\ModMenu.dll</HintPath>
+      <HintPath>$(WrathPath)\Mods\ModMenu\ModMenu.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>$(WrathPath)\Wrath_Data\Managed\Newtonsoft.Json.dll</HintPath>
