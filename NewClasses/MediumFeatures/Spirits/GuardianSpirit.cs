@@ -128,10 +128,6 @@ namespace AddedFeats.NewClasses.MediumFeatures.Spirits
                 {
                     ValueType = ContextValueType.Rank
                 }, ModifierDescriptor.Other)
-                .AddContextStatBonus(StatType.Constitution, value: new ContextValue()
-                {
-                    ValueType = ContextValueType.Rank
-                }, ModifierDescriptor.Other)
                 .AddContextRankConfig(
                     ContextRankConfigs.FeatureRank(Guids.SpiritBonusFeat, max: 20, min: 1))
                 .Configure();

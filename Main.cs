@@ -71,6 +71,7 @@ namespace AddedFeats
                     InitializeDelayed = true;
 
                     ConfigureFeatsDelayed();
+                    ConfigureClassDelayed();
 
                     RootConfigurator.ConfigureDelayedBlueprints();
                 }
@@ -114,7 +115,6 @@ namespace AddedFeats
                     Settings.Init();
 
                     ConfigureHomebrew();
-                    ConfigureArchetypes();
                     ConfigureFeats();
                     ConfigureSpells();
                 }
@@ -128,7 +128,7 @@ namespace AddedFeats
                 Logger.Log("Configuring homebrew.");
                 MythicAnimalFocus.Configure();
             }
-            private static void ConfigureArchetypes()
+            private static void ConfigureClassDelayed()
             {
                 Logger.Log("Configuring archetypes.");
                 MediumClass.Configure();

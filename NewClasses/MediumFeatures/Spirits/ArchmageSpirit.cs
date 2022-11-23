@@ -1,5 +1,7 @@
 ﻿using AddedFeats.Utils;
+using BlueprintCore.Blueprints.Configurators.Classes.Spells;
 using BlueprintCore.Blueprints.Configurators.UnitLogic.ActivatableAbilities;
+using BlueprintCore.Blueprints.CustomConfigurators.Classes;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
 using BlueprintCore.Utils;
@@ -23,11 +25,12 @@ using static UnityModManagerNet.UnityModManager.ModEntry;
 
 namespace AddedFeats.NewClasses.MediumFeatures.Spirits
 {
-    class ArchmageSpirit : IBaseSpirit
+    class ArchmageSpirit : IBaseSpirit, ICasterSpirit
     {
         private static readonly string FeatName = "ArchmageSpirit";
         private static readonly string DisplayName = "Archmage.Name";
         private static readonly string Description = "Archmage.Description";
+        private static readonly string SpellbookName = "ArchmageSpellbook.Name";
 
         private UnityEngine.Sprite _icon = AbilityRefs.DismissAreaEffect.Reference.Get().Icon;
         
@@ -58,6 +61,12 @@ namespace AddedFeats.NewClasses.MediumFeatures.Spirits
         private BlueprintBuff _influencepenalty = BuffConfigurator.New(FeatName + "InfluencePenalty", Guids.ArchmageSpiritInfluencePenalty).Configure();
         public BlueprintBuff influencepenalty => this._influencepenalty;
 
+        private BlueprintSpellbook _spellbook = SpellbookConfigurator.New(FeatName + "SpellBook", Guids.ArchmageSpellbook).Configure();
+        public BlueprintSpellbook spellbook => this._spellbook;
+
+        private BlueprintFeature _spellbookfeat = FeatureConfigurator.New(FeatName + "SpellBookFeature", Guids.ArchmageSpellbookFeat).Configure();
+        public BlueprintFeature spellbookfeat => this._spellbookfeat;
+
         private BlueprintCharacterClass _medium = BlueprintTool.Get<BlueprintCharacterClass>(Guids.MediumClass);
 
         private static readonly ModLogger Logger = Logging.GetLogger(FeatName);
@@ -69,12 +78,15 @@ namespace AddedFeats.NewClasses.MediumFeatures.Spirits
             this.SpiritBonus();
             this.SeanceBoon();
             this.SpiritPowers();
+            this.SpellBook();
+            this.SpellBookFeature();
             //this.InfluencePenalty();
             //this.Taboo();
 
             BuffConfigurator.For(spiritpowers)
                 .SetFxOnStart("a68e191c519cae741b6c4177b4d13ef6")
                 .AddFeatureIfHasFact(checkedFact: BlueprintTool.Get<BlueprintFeature>(Guids.SpiritPowerLesser), feature: lesserpower)
+                .AddFeatureIfHasFact(checkedFact: BlueprintTool.Get<BlueprintFeature>(Guids.SpiritPowerLesser), feature: spellbookfeat)
                 .AddFeatureIfHasFact(checkedFact: BlueprintTool.Get<BlueprintFeature>(Guids.SpiritPowerIntermediate), feature: intermediatepower)
                 .AddFeatureIfHasFact(checkedFact: BlueprintTool.Get<BlueprintFeature>(Guids.SpiritPowerGreater), feature: greaterpower)
                 .AddFeatureIfHasFact(checkedFact: BlueprintTool.Get<BlueprintFeature>(Guids.SpiritPowerSupreme), feature: supremepower)
@@ -144,19 +156,19 @@ namespace AddedFeats.NewClasses.MediumFeatures.Spirits
                 .Configure();
         }
 
+        /// <summary>
+        /// Archmage Spirit Powers
+        /// Lesser: 1 new spell per day and more spell levels
+        /// Intermediate: Gain 1 influence to cast one of your medium spells known without expending a spell slot. When you do so, the caster level and DC of the spell increase by 1, and you can’t apply metamagic to the spell.
+        /// Greater: Gain 1 influence to cast any sorcerer/wizard spell of a level you can cast. You must expend a spell slot of the appropriate level, and you can’t apply metamagic to the spell.
+        /// Supreme: Once per day, cast any spell from the sorcerer/wizard spell list you can cast as if using wild arcana (greater). Doesn't require influence or spell slots.
+        /// </summary>
         public void SpiritPowers()
         {
+
             BuffConfigurator.For(lesserpower)
                 .SetFlags(BlueprintBuff.Flags.HiddenInUi)
                 .SetDisplayName(DisplayName)
-                //Placeholders
-                .AddSpellKnownTemporary(_medium, 0, true, AbilityRefs.Jolt.Reference.Get())
-                .AddSpellKnownTemporary(_medium, 1, true, AbilityRefs.MageArmor.Reference.Get())
-                .AddSpellKnownTemporary(_medium, 2, true, AbilityRefs.SenseVitals.Reference.Get())
-                .AddSpellKnownTemporary(_medium, 3, true, AbilityRefs.Haste.Reference.Get())
-                .AddSpellKnownTemporary(_medium, 4, true, AbilityRefs.Heal.Reference.Get())
-                .AddSpellKnownTemporary(_medium, 5, true, AbilityRefs.CatsGraceMass.Reference.Get())
-                .AddSpellKnownTemporary(_medium, 6, true, AbilityRefs.Shapechange.Reference.Get())
                 .Configure();
 
             BuffConfigurator.For(intermediatepower)
@@ -182,6 +194,99 @@ namespace AddedFeats.NewClasses.MediumFeatures.Spirits
         public void Taboo()
         {
             throw new NotImplementedException();
-        }       
+        }
+
+        public void ConfigureSpellSlotsTable()
+        {
+            SpellsTableConfigurator.New(FeatName + "SpellSlotsTable", Guids.ArchmageSpellSlotsTable)
+                .SetLevels(new SpellsLevelEntry[] {
+                    new SpellsLevelEntry{ Count = new int[] { 0 } },//0
+                    new SpellsLevelEntry{ Count = new int[] { 0, 1 } },//1
+                    new SpellsLevelEntry{ Count = new int[] { 0, 1 } },//2
+                    new SpellsLevelEntry{ Count = new int[] { 0, 1 } },//3
+                    new SpellsLevelEntry{ Count = new int[] { 0, 1, 1 } },//4
+                    new SpellsLevelEntry{ Count = new int[] { 0, 1, 1 } },//5
+                    new SpellsLevelEntry{ Count = new int[] { 0, 1, 1 } },//6
+                    new SpellsLevelEntry{ Count = new int[] { 0, 1, 1, 1 } },//7
+                    new SpellsLevelEntry{ Count = new int[] { 0, 1, 1, 1 } },//8
+                    new SpellsLevelEntry{ Count = new int[] { 0, 1, 1, 1 } },//9
+                    new SpellsLevelEntry{ Count = new int[] { 0, 1, 1, 1, 1 } },//10
+                    new SpellsLevelEntry{ Count = new int[] { 0, 1, 1, 1, 1 } },//11
+                    new SpellsLevelEntry{ Count = new int[] { 0, 1, 1, 1, 1 } },//12
+                    new SpellsLevelEntry{ Count = new int[] { 0, 1, 1, 1, 1, 1 } },//13
+                    new SpellsLevelEntry{ Count = new int[] { 0, 1, 1, 1, 1, 1 } },//14
+                    new SpellsLevelEntry{ Count = new int[] { 0, 1, 1, 1, 1, 1 } },//15
+                    new SpellsLevelEntry{ Count = new int[] { 0, 1, 1, 1, 1, 1, 1 } },//16
+                    new SpellsLevelEntry{ Count = new int[] { 0, 1, 1, 1, 1, 1, 1 } },//17
+                    new SpellsLevelEntry{ Count = new int[] { 0, 1, 1, 1, 1, 1, 1 } },//18
+                    new SpellsLevelEntry{ Count = new int[] { 0, 1, 1, 1, 1, 1, 1 } },//19
+                    new SpellsLevelEntry{ Count = new int[] { 0, 1, 1, 1, 1, 1, 1 } },//20
+                    })
+                .Configure();
+        }
+
+        public void ConfigureSpellsPerDayTable()
+        {
+            SpellsTableConfigurator.New(FeatName + "SpellPerDayTable", Guids.ArchmageSpellPerDayTable)
+                .SetLevels(new SpellsLevelEntry[] {
+                    new SpellsLevelEntry{ Count = new int[] { 0 } },//0
+                    new SpellsLevelEntry{ Count = new int[] { 0, 1 } },//1
+                    new SpellsLevelEntry{ Count = new int[] { 0, 2 } },//2
+                    new SpellsLevelEntry{ Count = new int[] { 0, 3 } },//3
+                    new SpellsLevelEntry{ Count = new int[] { 0, 3, 1 } },//4
+                    new SpellsLevelEntry{ Count = new int[] { 0, 4, 2 } },//5
+                    new SpellsLevelEntry{ Count = new int[] { 0, 4, 3 } },//6
+                    new SpellsLevelEntry{ Count = new int[] { 0, 4, 3, 1 } },//7
+                    new SpellsLevelEntry{ Count = new int[] { 0, 4, 4, 2 } },//8
+                    new SpellsLevelEntry{ Count = new int[] { 0, 5, 4, 3 } },//9
+                    new SpellsLevelEntry{ Count = new int[] { 0, 5, 4, 3, 1 } },//10
+                    new SpellsLevelEntry{ Count = new int[] { 0, 5, 4, 4, 2 } },//11
+                    new SpellsLevelEntry{ Count = new int[] { 0, 5, 5, 4, 3 } },//12
+                    new SpellsLevelEntry{ Count = new int[] { 0, 5, 5, 4, 3, 1 } },//13
+                    new SpellsLevelEntry{ Count = new int[] { 0, 5, 5, 4, 4, 2 } },//14
+                    new SpellsLevelEntry{ Count = new int[] { 0, 5, 5, 5, 4, 3 } },//15
+                    new SpellsLevelEntry{ Count = new int[] { 0, 5, 5, 5, 4, 3, 1 } },//16
+                    new SpellsLevelEntry{ Count = new int[] { 0, 5, 5, 5, 4, 4, 2 } },//17
+                    new SpellsLevelEntry{ Count = new int[] { 0, 5, 5, 5, 5, 4, 3 } },//18
+                    new SpellsLevelEntry{ Count = new int[] { 0, 5, 5, 5, 5, 5, 4 } },//19
+                    new SpellsLevelEntry{ Count = new int[] { 0, 5, 5, 5, 5, 5, 5 } },//20
+                    })
+                .Configure();
+        }
+        public void SpellBook()
+        {
+            ConfigureSpellsPerDayTable();
+            ConfigureSpellSlotsTable();
+
+            SpellbookConfigurator.For(spellbook)
+                .SetName(SpellbookName)
+                .SetSpellsPerDay(BlueprintTool.GetRef<BlueprintSpellsTableReference>(Guids.ArchmageSpellPerDayTable))
+                .SetSpellSlots(BlueprintTool.GetRef<BlueprintSpellsTableReference>(Guids.ArchmageSpellSlotsTable))
+                .SetSpellList(SpellListRefs.WizardSpellList.Reference.Get())
+                .SetCastingAttribute(StatType.Charisma)
+                .SetAllSpellsKnown(true)
+                .SetIsMythic(false)
+                .SetSpontaneous(true)
+                .SetCantripsType(CantripsType.Cantrips)
+                .SetIsArcane(true)
+                .SetIsArcanist(true)
+                .SetCanCopyScrolls(false)
+                .SetCasterLevelModifier(0)
+                .Configure();
+        }
+
+        public void SpellBookFeature()
+        {
+            FeatureConfigurator.For(spellbookfeat)
+                .AddSpellbook(casterLevel: new ContextValue()
+                {
+                    ValueType = ContextValueType.Rank,
+
+                }, spellbook: spellbook)
+                .AddContextRankConfig(ContextRankConfigs.ClassLevel(new string[] { Guids.MediumClass }))
+                .SetIsClassFeature(true)
+                .SetHideInUI(true)
+                .Configure();                
+        }
     }
 }

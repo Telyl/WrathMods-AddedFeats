@@ -1,5 +1,15 @@
 ﻿[
   {
+    "Key": "ArchmageSpellbook.Name",
+    "ProcessTemplates": false,
+    "enGB": "Archmage"
+  },
+  {
+    "Key": "HierophantSpellbook.Name",
+    "ProcessTemplates": false,
+    "enGB": "Hierophant"
+  },
+  {
     "Key": "Spirit.Name",
     "ProcessTemplates": false,
     "enGB": "Spirit"

@@ -58,7 +58,12 @@ namespace AddedFeats.NewClasses.MediumFeatures
 
             var buff = BuffConfigurator.New(FeatName + "Buff", Guids.SpiritSurgeBuff)
             .SetIcon(AbilityRefs.BladeBarrier.Reference.Get().Icon)
+            .AddComponent<AddSpiritSurgeArchmage>()
             .AddComponent<AddSpiritSurgeChampion>()
+            .AddComponent<AddSpiritSurgeGuardian>()
+            .AddComponent<AddSpiritSurgeHierophant>()
+            .AddComponent<AddSpiritSurgeMarshal>()
+            .AddComponent<AddSpiritSurgeTrickster>()
             .AddContextRankConfig(
                     ContextRankConfigs.FeatureRank(Guids.SpiritSurgeProgression, max: 20, min: 1))
             .Configure();

@@ -36,8 +36,8 @@ namespace AddedFeats.NewComponents
 
         private static readonly ModLogger Logger = Logging.GetLogger("AddSpiritSurgeGuardian");
 
-        private DiceFormula? SurgeDice;
-        private TimeSpan reduce1min = new TimeSpan(0, 0, 1, 0, 0);
+        private static DiceFormula? SurgeDice;
+        private static TimeSpan reduce1min = new TimeSpan(0, 0, 1, 0, 0);
         private static BlueprintUnitFact _spiritSurge;
         private static BlueprintUnitFact SpiritSurge
         {

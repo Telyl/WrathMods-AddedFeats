@@ -364,6 +364,11 @@ namespace AddedFeats.Utils
         #region Classes
         internal const string MediumClass = "16286dce-e3f1-443d-8115-01b4eec9e573";
         internal const string MediumProgression = "44225dce-e4a1-323d-8115-01b4eec9e573";
+        internal const string MediumSpellbook = "dca485bf-acbe-43e0-b663-f352f4cf9f8b";
+        internal const string MediumSpellbookSpellSlotsTable = "ba018348-49fc-4586-a304-bd551c0ed758";
+        internal const string MediumSpellbookSpellsKnownTable = "0a5f9292-b59b-4f11-8366-ba02eed686dd";
+        internal const string MediumSpellbookSpellSlotsTableSpirit = "85e9b5cf-a40b-418c-aaa4-32e3ce26a03f";
+        internal const string MediumSpellList = "79f93e7c-bc52-46d3-9256-c5d271d570d8";
         #region ClassFeatures
         internal const string MediumProficiencies = "dff857a6-a36a-4157-b03d-c215c27e4453";
         // These are the checked facts we'll use to specify what spirits give
@@ -394,6 +399,11 @@ namespace AddedFeats.Utils
         internal const string ArchmageSpiritPowersSupreme = "bf24acce-1c48-4ea1-9770-91684ec357f7";
         internal const string ArchmageSpiritInfluencePenalty = "493bd8da-c8d9-43cd-bac5-a05289eb5eb2";
         internal const string ArchmageTaboo = "d5eafaf8-df45-4990-aeff-2a2b5ed36360";
+
+        internal const string ArchmageSpellbook = "63a67612-db66-487e-ad25-04bf84034f12";
+        internal const string ArchmageSpellbookFeat = "e452d83c-24cb-4c18-9373-a2b59b70e280";
+        internal const string ArchmageSpellSlotsTable = "3fb737f5-2800-403a-8b2b-78e0b9c70342";
+        internal const string ArchmageSpellPerDayTable = "dacc2bf7-7721-46a4-b86b-64bcb5433789";        
 
         internal const string Champion = "ecbb07f4-5d48-40e5-a69a-6f02d57ac5c6";
         internal const string ChampionSeance = "c20d10ea-0982-47b3-a11d-120bb1ef2e6b";
@@ -427,6 +437,12 @@ namespace AddedFeats.Utils
         internal const string HierophantSpiritPowersSupreme = "9ad1326b-171a-4efd-8a0f-4c84998a80ab";
         internal const string HierophantSpiritInfluencePenalty = "762c1d05-f24d-4472-b4b2-916da84bfa61";
         internal const string HierophantTaboo = "987ff22c-87a1-494b-a246-8e67cc4f2080";
+        internal const string HierophantChannelEnergy = "3248edfa-f99b-449f-8ab9-60d61f0b8235";
+
+        internal const string HierophantSpellbook = "146e523e-ed26-414a-bc52-0598935caef4";
+        internal const string HierophantSpellbookFeat = "91af1e89-0d7d-488f-8a53-4ebba4d63acc";
+        internal const string HierophantSpellSlotsTable = "d9116d75-2af2-4dbd-a707-dc58ef84e637";
+        internal const string HierophantSpellPerDayTable = "570e72ad-34bd-48ae-9b74-729c2dc09c85";
 
         internal const string Marshal = "b81e9bee-bab7-4fa7-8b5d-92c214dcf553";
         internal const string MarshalSeance = "2a886c23-3c35-4861-9c41-f83ef7010fe5";

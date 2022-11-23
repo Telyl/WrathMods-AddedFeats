@@ -32,12 +32,6 @@ namespace AddedFeats.NewClasses.MediumFeatures
                     FeatureRefs.LightArmorProficiency.Reference.Get(),
                     FeatureRefs.MediumArmorProficiency.Reference.Get()
                 })
-                .AddArcaneArmorProficiency(new ArmorProficiencyGroup[]
-                {
-                    ArmorProficiencyGroup.Light, ArmorProficiencyGroup.Medium, ArmorProficiencyGroup.Heavy,
-                    ArmorProficiencyGroup.Buckler, ArmorProficiencyGroup.LightShield, ArmorProficiencyGroup.HeavyShield,
-                    ArmorProficiencyGroup.TowerShield
-                })
                 .SetHideInUI(false)
                 .SetHideNotAvailibleInUI(false)
                 .SetIsClassFeature(true)

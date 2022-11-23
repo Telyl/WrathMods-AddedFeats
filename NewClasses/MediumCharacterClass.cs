@@ -13,6 +13,7 @@ using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
 using BlueprintCore.Utils;
 using Kingmaker.Blueprints.Root;
+using Kingmaker.Blueprints.Classes.Spells;
 
 namespace AddedFeats.NewClasses
 {
@@ -51,6 +52,7 @@ namespace AddedFeats.NewClasses
         {
             BlueprintCharacterClass mediumclass = CharacterClassConfigurator.New(ClassName, Guids.MediumClass).Configure();
             BlueprintProgression mediumprogression = MediumProgression.Configure();
+            BlueprintSpellbook mediumspellbook = MediumSpellbook.ConfigureEnabled();
 
             CharacterClassConfigurator.For(Guids.MediumClass)
                 .SetLocalizedName(DisplayName)
@@ -65,7 +67,7 @@ namespace AddedFeats.NewClasses
                 .SetReflexSave(StatProgressionRefs.SavesLow.Reference.Get())
                 .SetWillSave(StatProgressionRefs.SavesHigh.Reference.Get())
                 .SetProgression(mediumprogression)
-                .SetSpellbook(SpellbookRefs.AlchemistSpellbook.Reference.Get())
+                .SetSpellbook(mediumspellbook)
                 .SetIsDivineCaster(false)
                 .SetIsArcaneCaster(false)
                 //.SetArchetypes() // THIS IS WHERE I'D PUT ARCHETYPES. IF I HAD ANY.

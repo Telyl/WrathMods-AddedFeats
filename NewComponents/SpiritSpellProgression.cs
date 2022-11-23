@@ -24,8 +24,8 @@ using Kingmaker.UnitLogic.Buffs.Blueprints;
 namespace AddedFeats.NewComponents
 {
     [AllowedOn(typeof(BlueprintUnitFact))]
-    [TypeId("bcb943b96151484c961b2a68db3b9349")]
-    public class AddSpiritSurgeArchmage : UnitFactComponentDelegate,
+    [TypeId("e60dfdedb79d46fa9d1448955e4c28e7")]
+    public class SpiritSpellProgression : UnitFactComponentDelegate,
         IInitiatorRulebookHandler<RuleCalculateAbilityParams>,
         IRulebookHandler<RuleCalculateAbilityParams>, IInitiatorRulebookHandler<RuleSkillCheck>,
         IRulebookHandler<RuleSkillCheck>, IInitiatorRulebookHandler<RuleCheckConcentration>,

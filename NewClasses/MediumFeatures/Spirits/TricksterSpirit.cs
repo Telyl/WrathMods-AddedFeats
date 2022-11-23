@@ -104,8 +104,8 @@ namespace AddedFeats.NewClasses.MediumFeatures.Spirits
             BuffConfigurator.For(seanceboon)
                 .SetFlags(BlueprintBuff.Flags.HiddenInUi)
                 .SetDisplayName(DisplayName)
-                // Skill Bonus you want. Athletics Placeholder.
-                .AddStatBonus(ModifierDescriptor.Other, stat: StatType.SkillAthletics, value: 4)
+                .AddClassSkill(StatType.SkillAthletics)
+                .AddStatBonus(descriptor: ModifierDescriptor.UntypedStackable, stat: StatType.SkillAthletics, value: 1)
                 .Configure();
         }
 
@@ -118,22 +118,54 @@ namespace AddedFeats.NewClasses.MediumFeatures.Spirits
             BuffConfigurator.For(spiritbonus)
                 .SetFlags(BlueprintBuff.Flags.HiddenInUi)
                 .SetDisplayName(DisplayName)
+                .AddContextStatBonus(StatType.SkillAthletics, value: new ContextValue()
+                {
+                    ValueType = ContextValueType.Rank
+                }, ModifierDescriptor.UntypedStackable)
+                .AddContextStatBonus(StatType.SkillKnowledgeArcana, value: new ContextValue()
+                {
+                    ValueType = ContextValueType.Rank
+                }, ModifierDescriptor.UntypedStackable)
+                .AddContextStatBonus(StatType.SkillKnowledgeWorld, value: new ContextValue()
+                {
+                    ValueType = ContextValueType.Rank
+                }, ModifierDescriptor.UntypedStackable)
+                .AddContextStatBonus(StatType.SkillLoreNature, value: new ContextValue()
+                {
+                    ValueType = ContextValueType.Rank
+                }, ModifierDescriptor.UntypedStackable)
+                .AddContextStatBonus(StatType.SkillLoreReligion, value: new ContextValue()
+                {
+                    ValueType = ContextValueType.Rank
+                }, ModifierDescriptor.UntypedStackable)
                 .AddContextStatBonus(StatType.SkillMobility, value: new ContextValue()
                 {
                     ValueType = ContextValueType.Rank
-                }, ModifierDescriptor.Other)
-                .AddContextStatBonus(StatType.SkillThievery, value: new ContextValue()
+                }, ModifierDescriptor.UntypedStackable)
+                .AddContextStatBonus(StatType.SkillPerception, value: new ContextValue()
                 {
                     ValueType = ContextValueType.Rank
-                }, ModifierDescriptor.Other)
+                }, ModifierDescriptor.UntypedStackable)
+                .AddContextStatBonus(StatType.SkillPersuasion, value: new ContextValue()
+                {
+                    ValueType = ContextValueType.Rank
+                }, ModifierDescriptor.UntypedStackable)
                 .AddContextStatBonus(StatType.SkillStealth, value: new ContextValue()
                 {
                     ValueType = ContextValueType.Rank
-                }, ModifierDescriptor.Other)
+                }, ModifierDescriptor.UntypedStackable)
+                .AddContextStatBonus(StatType.SkillThievery, value: new ContextValue()
+                {
+                    ValueType = ContextValueType.Rank
+                }, ModifierDescriptor.UntypedStackable)
+                .AddContextStatBonus(StatType.SkillUseMagicDevice, value: new ContextValue()
+                {
+                    ValueType = ContextValueType.Rank
+                }, ModifierDescriptor.UntypedStackable)
                 .AddContextStatBonus(StatType.SaveReflex, value: new ContextValue()
                 {
                     ValueType = ContextValueType.Rank
-                }, ModifierDescriptor.Other)
+                }, ModifierDescriptor.UntypedStackable)
                 .AddContextRankConfig(
                     ContextRankConfigs.FeatureRank(Guids.SpiritBonusFeat, max: 20, min: 1))
                 .Configure();
@@ -144,8 +176,6 @@ namespace AddedFeats.NewClasses.MediumFeatures.Spirits
             BuffConfigurator.For(lesserpower)
                 .SetFlags(BlueprintBuff.Flags.HiddenInUi)
                 .SetDisplayName(DisplayName)
-                .AddTemporaryFeat(FeatureRefs.MartialWeaponProficiency.Reference.Get())
-                .AddTemporaryFeat(FeatureRefs.StarknifeProficiency.Reference.Get())
                 .Configure();
 
             BuffConfigurator.For(intermediatepower)
@@ -163,7 +193,7 @@ namespace AddedFeats.NewClasses.MediumFeatures.Spirits
             BuffConfigurator.For(greaterpower)
                 .SetFlags(BlueprintBuff.Flags.HiddenInUi)
                 .SetDisplayName(DisplayName)
-                .AddTemporaryFeat(FeatureRefs.Pounce.Reference.Get())
+                //.StealBuff
                 .Configure();
 
             BuffConfigurator.For(supremepower)

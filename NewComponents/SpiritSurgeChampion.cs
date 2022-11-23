@@ -38,8 +38,8 @@ namespace AddedFeats.NewComponents
 
         private static readonly ModLogger Logger = Logging.GetLogger("AddSpiritSurgeChampion");
         
-        private DiceFormula? SurgeDice;
-        private TimeSpan reduce1min = new TimeSpan(0, 0, 1, 0, 0);
+        private static DiceFormula? SurgeDice;
+        private static TimeSpan reduce1min = new TimeSpan(0, 0, 1, 0, 0);
         private static BlueprintUnitFact _spiritSurge;
         private static BlueprintUnitFact SpiritSurge
         {
@@ -119,9 +119,8 @@ namespace AddedFeats.NewComponents
         public void OnEventAboutToTrigger(RuleSkillCheck evt) {
             if (evt.StatType != StatType.SkillAthletics) { return; }
             if (SurgeDice == null) { return; }
-            evt.AddModifier(bonus: RulebookEvent.Dice.D(SurgeDice.GetValueOrDefault()),
-                            descriptor: ModifierDescriptor.UntypedStackable,
-                            source: evt.Reason.Caster.Facts.Get(SpiritSurge));
+            evt.Bonus.AddModifier(RulebookEvent.Dice.D(SurgeDice.GetValueOrDefault()),
+                            evt.Reason.Caster.Facts.Get(SpiritSurge), ModifierDescriptor.UntypedStackable);
             evt.Reason.Caster.Buffs.GetBuff(BlueprintTool.Get<BlueprintBuff>(Guids.SpiritSurgeBuff)).ReduceDuration(reduce1min);
         }
 

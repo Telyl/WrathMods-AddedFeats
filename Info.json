@@ -7,6 +7,6 @@
   "Requirements": [ "ModMenu-1.3.0" ],
   "AssemblyName": "AddedFeats.dll",
   "EntryMethod": "AddedFeats.Main.Load",
-  "LoadAfter": [ "MewsiferConsole.Mod", "TabletopTweaks-Core" ]
+  "LoadAfter": [ "MewsiferConsole.Mod", "TabletopTweaks-Core", "TabletopTweaks-Base" ]
 }
 

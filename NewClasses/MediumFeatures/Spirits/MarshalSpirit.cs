@@ -117,19 +117,11 @@ namespace AddedFeats.NewClasses.MediumFeatures.Spirits
             BuffConfigurator.For(spiritbonus)
                 .SetFlags(BlueprintBuff.Flags.HiddenInUi)
                 .SetDisplayName(DisplayName)
-                .AddContextStatBonus(StatType.AdditionalAttackBonus, value: new ContextValue()
+                .AddContextStatBonus(StatType.SkillUseMagicDevice, value: new ContextValue()
                 {
                     ValueType = ContextValueType.Rank
                 }, ModifierDescriptor.Other)
-                .AddContextStatBonus(StatType.AdditionalDamage, value: new ContextValue()
-                {
-                    ValueType = ContextValueType.Rank
-                }, ModifierDescriptor.Other)
-                .AddContextStatBonus(StatType.SkillAthletics, value: new ContextValue()
-                {
-                    ValueType = ContextValueType.Rank
-                }, ModifierDescriptor.Other)
-                .AddContextStatBonus(StatType.SaveFortitude, value: new ContextValue()
+                .AddContextStatBonus(StatType.SkillPersuasion, value: new ContextValue()
                 {
                     ValueType = ContextValueType.Rank
                 }, ModifierDescriptor.Other)
