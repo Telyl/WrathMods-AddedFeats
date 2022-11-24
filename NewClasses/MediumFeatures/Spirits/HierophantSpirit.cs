@@ -1,10 +1,16 @@
 ﻿using AddedFeats.Utils;
+using BlueprintCore.Actions.Builder;
+using BlueprintCore.Actions.Builder.AVEx;
+using BlueprintCore.Actions.Builder.ContextEx;
 using BlueprintCore.Blueprints.Configurators.Classes.Spells;
 using BlueprintCore.Blueprints.Configurators.UnitLogic.ActivatableAbilities;
+using BlueprintCore.Blueprints.CustomConfigurators;
 using BlueprintCore.Blueprints.CustomConfigurators.Classes;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Abilities;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
+using BlueprintCore.Conditions.Builder;
+using BlueprintCore.Conditions.Builder.ContextEx;
 using BlueprintCore.Utils;
 using BlueprintCore.Utils.Types;
 using Kingmaker.Blueprints;
@@ -21,6 +27,7 @@ using Kingmaker.UnitLogic.ActivatableAbilities;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
 using Kingmaker.UnitLogic.Mechanics;
 using Kingmaker.UnitLogic.Mechanics.Components;
+using Kingmaker.UnitLogic.Mechanics.Conditions;
 using Kingmaker.UnitLogic.Mechanics.Properties;
 using System;
 using System.Collections.Generic;
@@ -37,8 +44,12 @@ namespace AddedFeats.NewClasses.MediumFeatures.Spirits
         private static readonly string DisplayName = "Hierophant.Name";
         private static readonly string Description = "Hierophant.Description";
         private static readonly string SpellbookName = "HierophantSpellbook.Name";
+        private static readonly string ChannelEnergy = "HierophantChannelEnergy.Name";
+        private static readonly string ChannelEnergyDescription= "HierophantChannelEnergy.Description";
+        private static readonly string OverflowingGrace = "HierophantOverflowingGrace.Name";
+        private static readonly string OverflowingGraceDescription = "HierophantOverflowingGrace.Description";
 
-    private UnityEngine.Sprite _icon = AbilityRefs.CavalierForTheFaithAbility.Reference.Get().Icon;
+        private UnityEngine.Sprite _icon = AbilityRefs.CavalierForTheFaithAbility.Reference.Get().Icon;
         
         private BlueprintActivatableAbility _ability = ActivatableAbilityConfigurator.New(FeatName, Guids.Hierophant).Configure();
         public BlueprintActivatableAbility ability => this._ability;
@@ -73,6 +84,9 @@ namespace AddedFeats.NewClasses.MediumFeatures.Spirits
         private BlueprintFeature _spellbookfeat = FeatureConfigurator.New(FeatName + "SpellBookFeature", Guids.HierophantSpellbookFeat).Configure();
         public BlueprintFeature spellbookfeat => this._spellbookfeat;
 
+        private BlueprintProgression _progression = ProgressionConfigurator.New(FeatName + "Progression", Guids.HierophantProgression).Configure();
+        public BlueprintProgression progression => this._progression;
+
         private static readonly ModLogger Logger = Logging.GetLogger(FeatName);
 
         public void ConfigureDisabled() { return; }
@@ -81,10 +95,15 @@ namespace AddedFeats.NewClasses.MediumFeatures.Spirits
         {
             this.SpiritBonus();
             this.SeanceBoon();
-            //this.CreateChannelEnergy();
-            this.SpiritPowers();
+            // Create Lesser Spirit Power
             this.SpellBook();
             this.SpellBookFeature();
+            // Create Intermediate Spirit Power
+            this.CreateChannelEnergy();
+            // Create Greater Spirit Power
+            this.CreateOverflowingGrace();
+            this.SpiritPowers();
+            
             //this.InfluencePenalty();
             //this.Taboo();
 
@@ -169,9 +188,8 @@ namespace AddedFeats.NewClasses.MediumFeatures.Spirits
             BuffConfigurator.For(intermediatepower)
                 .SetFlags(BlueprintBuff.Flags.HiddenInUi)
                 .SetDisplayName(DisplayName)
-                .AddTemporaryFeat(FeatureRefs.ChannelEnergyFeature.Reference.Get())
-                .AddTemporaryFeat(FeatureRefs.ChannelNegativeFeature.Reference.Get())
-                //.AddTemporaryFeat(Guids.HierophantChannelEnergy)
+
+                .AddTemporaryFeat(Guids.HierophantChannelEnergyFeature)
                 .AddSpellKnownTemporary(Guids.MediumClass, 1, true, AbilityRefs.CureLightWounds.Reference.Get())
                 .AddSpellKnownTemporary(Guids.MediumClass, 1, true, AbilityRefs.InflictLightWounds.Reference.Get())
 
@@ -188,14 +206,12 @@ namespace AddedFeats.NewClasses.MediumFeatures.Spirits
             BuffConfigurator.For(greaterpower)
                 .SetFlags(BlueprintBuff.Flags.HiddenInUi)
                 .SetDisplayName(DisplayName)
-                .AddTemporaryFeat(FeatureRefs.Pounce.Reference.Get())
+                .AddTemporaryFeat(Guids.HierophantOverflowingGrace)
                 .Configure();
 
             BuffConfigurator.For(supremepower)
                 .SetFlags(BlueprintBuff.Flags.HiddenInUi)
                 .SetDisplayName(DisplayName)
-                //.AddTemporaryFeat()
-                //.AddTemporaryFeat()
                 .Configure();
         }
 
@@ -209,6 +225,10 @@ namespace AddedFeats.NewClasses.MediumFeatures.Spirits
             throw new NotImplementedException();
         }
 
+
+        /// <summary>
+        /// Support function to configure spell slots.
+        /// </summary>
         public void ConfigureSpellSlotsTable()
         {
             SpellsTableConfigurator.New(FeatName + "SpellSlotsTable", Guids.HierophantSpellSlotsTable)
@@ -238,6 +258,9 @@ namespace AddedFeats.NewClasses.MediumFeatures.Spirits
                 .Configure();
         }
 
+        /// <summary>
+        /// Support function to configure spells per day.
+        /// </summary>
         public void ConfigureSpellsPerDayTable()
         {
             SpellsTableConfigurator.New(FeatName + "SpellPerDayTable", Guids.HierophantSpellPerDayTable)
@@ -267,73 +290,148 @@ namespace AddedFeats.NewClasses.MediumFeatures.Spirits
                 .Configure();
         }
 
-        private BlueprintAbility CreateChannelEnergy()
+        /// <summary>
+        /// Intermediate Spirit Power (Hierophant)
+        /// You can channel energy a number of times per day equal to 1 + your Charisma modifier. 
+        /// Choose whether you channel positive or negative energy each time you contact a hierophant spirit; this choice must match the spirit’s faith. 
+        /// If you choose positive energy, add cure spells of each level you can cast from the cleric list to your medium spell list and spells known. 
+        /// Otherwise, add inflict spells in the same way. These spells count as divine, as in the divine surge spirit power.
+        /// 
+        /// TODO: SELECTABLE CHANNEL ENERGY. CURRENTLY GIVES BOTH.
+        /// </summary>
+        private void CreateChannelEnergy()
         {
-            return AbilityConfigurator.New(FeatName + "ChannelEnergy", Guids.HierophantChannelEnergy)
-                .CopyFrom(AbilityRefs.ChannelEnergy.Reference.Get(),
-                typeof(AbilityTargetsAround),
-                typeof(AbilityEffectRunAction),
-                typeof(AbilitySpawnFx),
-                typeof(AbilityUseOnRest),
-                typeof(SpellDescriptorComponent))
-                .AddContextRankConfig(component: ContextRankConfigs.ClassLevel(new string[] { Guids.MediumClass }, type: default, max: 20, min: 0).WithOnePlusDiv2Progression())
-                .AddContextRankConfig(component: ContextRankConfigs.CustomProperty(property: BlueprintTool.Get<BlueprintUnitProperty>("152e61de154108d489ff34b98066c25c").ToString(),
-                type: AbilityRankType.DamageBonus, max: 20, min: 0))
-                .AddContextCalculateSharedValue(modifier: 0.5, valueType: AbilitySharedValue.StatBonus, value: new ContextDiceValue()
-                {
-                    DiceType = DiceType.D6,
-                    DiceCountValue =
-                    {
-                        ValueShared = AbilitySharedValue.Damage,
-                        Value = 0,
-                        ValueType = ContextValueType.Simple,
-                        ValueRank = AbilityRankType.Default
-                    },
-                    BonusValue =
-                    {
-                        ValueType = ContextValueType.Shared,
-                        Value = 0,
-                        ValueRank = AbilityRankType.StatBonus,
-                        ValueShared = AbilitySharedValue.Heal
-                    }
+            // The resource for our channel energy, because we're fancy.
+            var resource = AbilityResourceConfigurator.New(FeatName + "ChannelEnergyResource", Guids.HierophantChannelEnergyResource)
+                .SetMaxAmount(new BlueprintAbilityResource.Amount {
+                    BaseValue = 1,
+                    IncreasedByLevel = false,
+                    IncreasedByLevelStartPlusDivStep = false,
+                    StartingLevel = 0,
+                    StartingIncrease = 0,
+                    LevelStep = 0,
+                    PerStepIncrease = 0,
+                    MinClassLevelIncrease = 0,
+                    IncreasedByStat = true,
+                    ResourceBonusStat = StatType.Charisma
+            })
+                .SetMax(10)
+                .SetUseMax(false)
+                .Configure();
 
-                })
-                .AddContextCalculateSharedValue(modifier: 1.0, valueType: AbilitySharedValue.Heal, value: new ContextDiceValue()
-                {
-                    DiceType = DiceType.D6,
-                    DiceCountValue =
-                    {
-                        ValueShared = AbilitySharedValue.Damage,
-                        Value = 0,
-                        ValueType = ContextValueType.Rank,
-                        ValueRank = AbilityRankType.Default
-                    },
-                    BonusValue =
-                    {
-                        ValueType = ContextValueType.Rank,
-                        Value = 0,
-                        ValueRank = AbilityRankType.DamageBonus,
-                        ValueShared = AbilitySharedValue.Damage
-                    }
 
-                })
-                .SetRange(AbilityRange.Personal)
-                .SetType(AbilityType.Supernatural)
-                .SetOnlyForAllyCaster(false)
-                .SetCanTargetPoint(false)
-                .SetCanTargetEnemies(false)
-                .SetCanTargetFriends(true)
-                .SetCanTargetSelf(true)
-                .SetSpellResistance(false)
-                .SetEffectOnAlly(AbilityEffectOnUnit.None)
-                .SetEffectOnEnemy(AbilityEffectOnUnit.Harmful)
-                .SetAnimation(Kingmaker.Visual.Animation.Kingmaker.Actions.UnitAnimationActionCastSpell.CastAnimationStyle.Omni)
-                .SetHasFastAnimation(false)
-                .SetActionType(Kingmaker.UnitLogic.Commands.Base.UnitCommand.CommandType.Standard)
-                .SetIsFullRoundAction(false)
+            var posability = AbilityConfigurator.New(FeatName + "ChannelEnergy", Guids.HierophantChannelEnergy)
+                .AddAbilityResourceLogic(amount: 1, requiredResource: Guids.HierophantChannelEnergyResource, isSpendResource: true, costIsCustom: false)
+                .CopyFrom(AbilityRefs.ChannelEnergy, c => c is not (ContextRankConfig or AbilityResourceLogic))
+                .AddContextRankConfig(ContextRankConfigs.ClassLevel(new string[] { Guids.MediumClass }, type: default, max: 20, min: 0).WithDiv2Progression())
+                .AddContextRankConfig(ContextRankConfigs.CustomProperty(type: AbilityRankType.DamageBonus, property: UnitPropertyRefs.MythicChannelProperty.ToString(), max: 20, min: 0))
+                .Configure();
+
+            var posharmability = AbilityConfigurator.New(FeatName + "ChannelEnergyPositiveHarm", Guids.HierophantChannelEnergyPositiveHarm)
+                .AddAbilityResourceLogic(amount: 1, requiredResource: Guids.HierophantChannelEnergyResource, isSpendResource: true, costIsCustom: false)
+                .CopyFrom(AbilityRefs.ChannelPositiveHarm, c => c is not (ContextRankConfig or AbilityResourceLogic))
+                .AddContextRankConfig(ContextRankConfigs.ClassLevel(new string[] { Guids.MediumClass }, type: default, max: 20, min: 0).WithDiv2Progression())
+                .AddContextRankConfig(ContextRankConfigs.CustomProperty(type: AbilityRankType.DamageBonus, property: UnitPropertyRefs.MythicChannelProperty.ToString(), max: 20, min: 0))
+                .Configure();
+
+            var negability = AbilityConfigurator.New(FeatName + "ChannelNegativeEnergy", Guids.HierophantChannelNegativeEnergy)
+                .AddAbilityResourceLogic(amount: 1, requiredResource: Guids.HierophantChannelEnergyResource, isSpendResource: true, costIsCustom: false)
+                .CopyFrom(AbilityRefs.ChannelNegativeEnergy, c => c is not (ContextRankConfig or AbilityResourceLogic))
+                .AddContextRankConfig(ContextRankConfigs.ClassLevel(new string[] { Guids.MediumClass }, type: default, max: 20, min: 0).WithDiv2Progression())
+                .AddContextRankConfig(ContextRankConfigs.CustomProperty(type: AbilityRankType.DamageBonus, property: UnitPropertyRefs.MythicChannelProperty.ToString(), max: 20, min: 0))
+                .Configure();
+
+            var neghealability = AbilityConfigurator.New(FeatName + "ChannelNegativeEnergyHeal", Guids.HierophantChannelNegativeEnergyHeal)
+                .AddAbilityResourceLogic(amount: 1, requiredResource: Guids.HierophantChannelEnergyResource, isSpendResource: true, costIsCustom: false)
+                .CopyFrom(AbilityRefs.ChannelNegativeHeal, c => c is not (ContextRankConfig or AbilityResourceLogic))
+                .AddContextRankConfig(ContextRankConfigs.ClassLevel(new string[] { Guids.MediumClass }, type: default, max: 20, min: 0).WithDiv2Progression())
+                .AddContextRankConfig(ContextRankConfigs.CustomProperty(type: AbilityRankType.DamageBonus, property: UnitPropertyRefs.MythicChannelProperty.ToString(), max: 20, min: 0))
+                .Configure();
+
+            FeatureConfigurator.New(FeatName + "ChannelEnergyFeature", Guids.HierophantChannelEnergyFeature)
+                .SetDisplayName(ChannelEnergy)
+                .SetDescription(ChannelEnergyDescription)
+                .AddToIsPrerequisiteFor(FeatureRefs.SelectiveChannel.Reference.Get())
+                .AddAbilityResources(amount: 0, resource: resource, restoreAmount: true, restoreOnLevelUp: false, useThisAsResource: false)
+                .AddFacts(new() { posability, posharmability, negability, neghealability })
+                .Configure();
+        }
+        
+        /// <summary>
+        /// Greater Spirit Power (Hierophant)
+        /// When you heal a creature to full hit points or a creature already at full hit points with your positive or negative energy, 
+        /// that creature gains a +1 sacred bonus on attack rolls, skill checks, ability checks, and saving throws for 1 round. 
+        /// The bonus is sacred if you use positive energy and profane if you use negative energy. 
+        /// If you destroy or kill one or more creatures with positive or negative energy, 
+        /// you gain a +1 bonus of the same type on attack rolls, skill checks, ability checks, and saving throws for 1 round.
+        /// </summary>
+        private void CreateOverflowingGrace()
+        {
+
+            BlueprintBuff overflowingbuff = BuffConfigurator.New(FeatName + "OverflowingGraceBuff", Guids.HierophantOverflowingGraceBuff)
+                .SetDisplayName(OverflowingGrace)
+                .SetDescription(OverflowingGraceDescription)
+                .AddStatBonus(descriptor: ModifierDescriptor.Sacred, stat: StatType.AdditionalAttackBonus, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Sacred, stat: StatType.SkillAthletics, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Sacred, stat: StatType.SkillKnowledgeArcana, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Sacred, stat: StatType.SkillKnowledgeWorld, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Sacred, stat: StatType.SkillLoreNature, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Sacred, stat: StatType.SkillLoreReligion, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Sacred, stat: StatType.SkillMobility, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Sacred, stat: StatType.SkillPerception, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Sacred, stat: StatType.SkillPersuasion, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Sacred, stat: StatType.SkillStealth, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Sacred, stat: StatType.SkillThievery, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Sacred, stat: StatType.SkillUseMagicDevice, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Sacred, stat: StatType.SaveFortitude, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Sacred, stat: StatType.SaveReflex, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Sacred, stat: StatType.SaveWill, value: 1)
+                .Configure();
+
+            BlueprintBuff overflowingprofane = BuffConfigurator.New(FeatName + "OverflowingGraceBuffProfane", Guids.HierophantOverflowingGraceBuffProfane)
+                .SetDisplayName(OverflowingGrace)
+                .SetDescription(OverflowingGraceDescription)
+                .AddStatBonus(descriptor: ModifierDescriptor.Profane, stat: StatType.AdditionalAttackBonus, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Profane, stat: StatType.SkillAthletics, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Profane, stat: StatType.SkillKnowledgeArcana, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Profane, stat: StatType.SkillKnowledgeWorld, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Profane, stat: StatType.SkillLoreNature, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Profane, stat: StatType.SkillLoreReligion, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Profane, stat: StatType.SkillMobility, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Profane, stat: StatType.SkillPerception, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Profane, stat: StatType.SkillPersuasion, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Profane, stat: StatType.SkillStealth, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Profane, stat: StatType.SkillThievery, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Profane, stat: StatType.SkillUseMagicDevice, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Profane, stat: StatType.SaveFortitude, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Profane, stat: StatType.SaveReflex, value: 1)
+                .AddStatBonus(descriptor: ModifierDescriptor.Profane, stat: StatType.SaveWill, value: 1)
+                .Configure();
+
+            FeatureConfigurator.New(FeatName + "OverflowingGrace", Guids.HierophantOverflowingGrace)
+                .SetDisplayName(OverflowingGrace)
+                .SetDescription(OverflowingGraceDescription)
+                .AddOverHealTrigger(maxValue: new ContextValue()
+                {
+                    Value = 1,
+                }, limitMaximum: true, actionOnTarget: ActionsBuilder.New().Conditional(ConditionsBuilder.New().IsAlly().HasFact(FeatureRefs.NegativeEnergyAffinity.Reference.Get(), true),
+                    ifTrue: ActionsBuilder.New().ApplyBuff(buff: overflowingbuff, asChild: true, isFromSpell: false, isNotDispelable: true, toCaster: true, durationValue: ContextDuration.Fixed(1, DurationRate.Rounds))))
+                .AddOverHealTrigger(maxValue: new ContextValue()
+                {
+                    Value = 1,
+                }, limitMaximum: true, actionOnTarget: ActionsBuilder.New().Conditional(ConditionsBuilder.New().IsAlly().HasFact(FeatureRefs.LifeDominantSoul.Reference.Get()),
+                    ifTrue: ActionsBuilder.New().ApplyBuff(buff: overflowingbuff, asChild: true, isFromSpell: false, isNotDispelable: true, toCaster: true, durationValue: ContextDuration.Fixed(1, DurationRate.Rounds))))
+                .AddOverHealTrigger(maxValue: new ContextValue()
+                {
+                    Value = 1,
+                }, limitMaximum: true, actionOnTarget: ActionsBuilder.New().Conditional(ConditionsBuilder.New().IsAlly().HasFact(FeatureRefs.NegativeEnergyAffinity.Reference.Get()), 
+                    ifTrue: ActionsBuilder.New().ApplyBuff(buff: overflowingprofane, asChild: true, isFromSpell: false, isNotDispelable: true, toCaster: true, durationValue: ContextDuration.Fixed(1, DurationRate.Rounds))))
                 .Configure();
         }
 
+        /// <summary>
+        /// Creates the spirit spellbook.
+        /// </summary>
         public void SpellBook()
         {
             ConfigureSpellsPerDayTable();
@@ -356,6 +454,10 @@ namespace AddedFeats.NewClasses.MediumFeatures.Spirits
                 .Configure();
         }
 
+        /// <summary>
+        /// Creates a spellbook feature with the medium class level as the caster level for context rank config.
+        /// This gives us the ability to dynamically update our spirit's spellbook.
+        /// </summary>
         public void SpellBookFeature()
         {
             FeatureConfigurator.For(spellbookfeat)

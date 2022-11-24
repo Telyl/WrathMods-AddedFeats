@@ -390,6 +390,7 @@ namespace AddedFeats.Utils
         internal const string InfluenceAbility = "f7642df8-8a73-467b-af80-d03e851d18ed";
 
         internal const string Archmage = "6fbf6bc5-644c-4fb7-83d6-455b05e44647";
+        internal const string ArchmageProgression = "3171d721-2058-489d-8c9f-224dbaa72b87";
         internal const string ArchmageSeance = "5d38425a-21c1-403f-8033-a50f918fa5db";
         internal const string ArchmageSpiritBonus = "eb27b743-578f-424f-a06c-3ee5bb2ac5ad";
         internal const string ArchmageSpiritPowers = "6eb13ba8-94af-4a2c-80c9-228f2206a3f4";
@@ -399,6 +400,9 @@ namespace AddedFeats.Utils
         internal const string ArchmageSpiritPowersSupreme = "bf24acce-1c48-4ea1-9770-91684ec357f7";
         internal const string ArchmageSpiritInfluencePenalty = "493bd8da-c8d9-43cd-bac5-a05289eb5eb2";
         internal const string ArchmageTaboo = "d5eafaf8-df45-4990-aeff-2a2b5ed36360";
+
+        internal const string ArchmageWildArcana = "2f65e8f8-733f-43e1-a9ae-b1bec95713ef";
+        internal const string ArchmageWildArcanaAbility = "ac33e36d-a429-4e5d-8c67-b899694226af";
 
         internal const string ArchmageSpellbook = "63a67612-db66-487e-ad25-04bf84034f12";
         internal const string ArchmageSpellbookFeat = "e452d83c-24cb-4c18-9373-a2b59b70e280";
@@ -428,6 +432,7 @@ namespace AddedFeats.Utils
         internal const string GuardianTaboo = "c8a6d284-1b90-4b2e-9c94-66f9a7c832d3";
 
         internal const string Hierophant = "644c5fc7-e37e-42fe-a4bc-bf08dc2fa01f";
+        internal const string HierophantProgression = "63caa530-07be-45cb-b7d9-6958df73e5e7";
         internal const string HierophantSeance = "22605cbf-44d2-44dd-bedb-9f2107df6f7c";
         internal const string HierophantSpiritBonus = "44cf0ea3-d54a-4a32-a22d-f6dcfe5c68c1";
         internal const string HierophantSpiritPowers = "efb5b595-f127-4d07-ac94-6efa36dabe0a";
@@ -438,6 +443,15 @@ namespace AddedFeats.Utils
         internal const string HierophantSpiritInfluencePenalty = "762c1d05-f24d-4472-b4b2-916da84bfa61";
         internal const string HierophantTaboo = "987ff22c-87a1-494b-a246-8e67cc4f2080";
         internal const string HierophantChannelEnergy = "3248edfa-f99b-449f-8ab9-60d61f0b8235";
+        internal const string HierophantChannelEnergyPositiveHarm = "e5196fcf-7efe-4c30-b08f-707e063e4f6a";
+        internal const string HierophantChannelNegativeEnergy = "482df247-9562-4208-94fb-8640fb8b9a6e";
+        internal const string HierophantChannelNegativeEnergyHeal = "ecb49539-72b3-4539-aa06-17a63a8af57d";
+        internal const string HierophantChannelEnergyFeature = "bb83ee27-d225-4b74-87fb-9b46abae64ee";
+        internal const string HierophantChannelEnergyResource = "4358edfa-f99b-449f-8ab9-60d61f0b8235";
+
+        internal const string HierophantOverflowingGrace = "492d1c25-2c3d-4013-a049-92802295ebdc";
+        internal const string HierophantOverflowingGraceBuff = "8dcdf05f-8251-4df1-9822-628cf7b6dace";
+        internal const string HierophantOverflowingGraceBuffProfane = "f99a90e1-c56c-4b1f-b234-31a510e5360d";
 
         internal const string HierophantSpellbook = "146e523e-ed26-414a-bc52-0598935caef4";
         internal const string HierophantSpellbookFeat = "91af1e89-0d7d-488f-8a53-4ebba4d63acc";

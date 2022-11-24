@@ -1,7 +1,9 @@
-﻿using AddedFeats.Utils;
+﻿using AddedFeats.NewComponents;
+using AddedFeats.Utils;
 using BlueprintCore.Blueprints.Configurators.Classes.Spells;
 using BlueprintCore.Blueprints.Configurators.UnitLogic.ActivatableAbilities;
 using BlueprintCore.Blueprints.CustomConfigurators.Classes;
+using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Abilities;
 using BlueprintCore.Blueprints.CustomConfigurators.UnitLogic.Buffs;
 using BlueprintCore.Blueprints.References;
 using BlueprintCore.Utils;
@@ -13,6 +15,8 @@ using Kingmaker.Blueprints.Classes.Spells;
 using Kingmaker.EntitySystem.Stats;
 using Kingmaker.Enums;
 using Kingmaker.ResourceLinks;
+using Kingmaker.UI.AbilityTarget;
+using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.UnitLogic.ActivatableAbilities;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
 using Kingmaker.UnitLogic.Mechanics;
@@ -22,6 +26,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static UnityModManagerNet.UnityModManager.ModEntry;
+using AbilityRange = Kingmaker.UnitLogic.Abilities.Blueprints.AbilityRange;
 
 namespace AddedFeats.NewClasses.MediumFeatures.Spirits
 {
@@ -67,6 +72,9 @@ namespace AddedFeats.NewClasses.MediumFeatures.Spirits
         private BlueprintFeature _spellbookfeat = FeatureConfigurator.New(FeatName + "SpellBookFeature", Guids.ArchmageSpellbookFeat).Configure();
         public BlueprintFeature spellbookfeat => this._spellbookfeat;
 
+        private BlueprintProgression _progression = ProgressionConfigurator.New(FeatName + "Progression", Guids.ArchmageProgression).Configure();
+        public BlueprintProgression progression => this._progression;
+
         private BlueprintCharacterClass _medium = BlueprintTool.Get<BlueprintCharacterClass>(Guids.MediumClass);
 
         private static readonly ModLogger Logger = Logging.GetLogger(FeatName);
@@ -77,6 +85,7 @@ namespace AddedFeats.NewClasses.MediumFeatures.Spirits
         {
             this.SpiritBonus();
             this.SeanceBoon();
+            this.ConfigureWildArcana();
             this.SpiritPowers();
             this.SpellBook();
             this.SpellBookFeature();
@@ -174,6 +183,7 @@ namespace AddedFeats.NewClasses.MediumFeatures.Spirits
             BuffConfigurator.For(intermediatepower)
                 .SetFlags(BlueprintBuff.Flags.HiddenInUi)
                 .SetDisplayName(DisplayName)
+                .AddTemporaryFeat(Guids.ArchmageWildArcana)
                 .Configure();
 
             BuffConfigurator.For(greaterpower)
@@ -194,6 +204,36 @@ namespace AddedFeats.NewClasses.MediumFeatures.Spirits
         public void Taboo()
         {
             throw new NotImplementedException();
+        }
+
+        public void ConfigureWildArcana()
+        {
+
+            var ability = AbilityConfigurator.New(FeatName + "WildArcanaAbility", Guids.ArchmageWildArcanaAbility)
+                .SetDisplayName(DisplayName)
+                .SetDescription(Description)
+                .SetIcon(AbilityRefs.BloodlineArcaneItemBondAbility.Reference.Get().Icon)
+                .SetRange(AbilityRange.Personal)
+                .SetCanTargetSelf(true)
+                .SetType(AbilityType.Supernatural)
+                .SetAnimation(Kingmaker.Visual.Animation.Kingmaker.Actions.UnitAnimationActionCastSpell.CastAnimationStyle.Omni)
+                .SetActionType(Kingmaker.UnitLogic.Commands.Base.UnitCommand.CommandType.Standard)
+                .SetIsFullRoundAction(false)
+                .AddComponent<LegendaryArchmageComponent>(c =>
+                {
+                    c.AnySpellLevel = true;
+                    c.CharacterClass = new BlueprintCharacterClassReference[]
+                    {
+                        BlueprintTool.GetRef<BlueprintCharacterClassReference>(Guids.MediumClass),
+                    };
+                })
+                .Configure();
+
+            FeatureConfigurator.New(FeatName + "WildArcana", Guids.ArchmageWildArcana)
+                .SetDisplayName(DisplayName)
+                .SetDescription(Description)
+                .AddFacts(new() { ability })
+                .Configure();
         }
 
         public void ConfigureSpellSlotsTable()
@@ -253,6 +293,7 @@ namespace AddedFeats.NewClasses.MediumFeatures.Spirits
                     })
                 .Configure();
         }
+
         public void SpellBook()
         {
             ConfigureSpellsPerDayTable();
@@ -287,6 +328,21 @@ namespace AddedFeats.NewClasses.MediumFeatures.Spirits
                 .SetIsClassFeature(true)
                 .SetHideInUI(true)
                 .Configure();                
+        }
+
+        public void ConfigureProgression()
+        {
+            ProgressionConfigurator.For(progression)
+                .SetAllowNonContextActions(false)
+                .SetHideInUI(false)
+                .SetHideInCharacterSheetAndLevelUp(false)
+                .SetHideNotAvailibleInUI(false)
+                .SetRanks(1)
+                .SetReapplyOnLevelUp(false)
+                .SetIsClassFeature(false)
+                .AddToClasses(Guids.MediumClass)
+                .SetForAllOtherClasses(false)
+                .Configure();
         }
     }
 }
