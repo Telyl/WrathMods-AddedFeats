@@ -102,7 +102,7 @@ namespace AddedFeats.Feats
                 value: new ContextValue()
                 {
                     ValueType = ContextValueType.Rank
-                }, ModifierDescriptor.Enhancement)
+                }, ModifierDescriptor.Inherent)
                 .AddContextRankConfig(
                     ContextRankConfigs.CharacterLevel(min: 0, max: 20)
                     .WithCustomProgression((7, 2), (14, 4), (20, 6)))
@@ -130,7 +130,7 @@ namespace AddedFeats.Feats
                 value: new ContextValue()
                 {
                     ValueType = ContextValueType.Rank
-                }, ModifierDescriptor.Enhancement)
+                }, ModifierDescriptor.Inherent)
                 .AddContextRankConfig(
                     ContextRankConfigs.CharacterLevel(min: 0, max: 20)
                     .WithCustomProgression((7, 4), (14, 6), (20, 8)))
@@ -145,7 +145,7 @@ namespace AddedFeats.Feats
                 value: new ContextValue()
                 {
                     ValueType = ContextValueType.Rank
-                }, ModifierDescriptor.Enhancement)
+                }, ModifierDescriptor.Inherent)
                 .AddContextRankConfig(
                     ContextRankConfigs.CharacterLevel(min: 0, max: 20)
                     .WithCustomProgression((7, 5), (14, 10), (20, 20))

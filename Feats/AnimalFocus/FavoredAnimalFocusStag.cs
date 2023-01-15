@@ -52,7 +52,7 @@ namespace AddedFeats.Feats.AnimalFocus
                 value: new ContextValue()
                 {
                     ValueType = ContextValueType.Rank
-                }, ModifierDescriptor.Enhancement)
+                }, ModifierDescriptor.Inherent)
                 .AddContextRankConfig(
                     ContextRankConfigs.CharacterLevel()
                     .WithCustomProgression((7, 10), (15, 20), (16, 30)))

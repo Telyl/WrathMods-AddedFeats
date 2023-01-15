@@ -115,7 +115,7 @@
   },
   {
     "Key": "FavoredAnimalFocus.Description",
-    "enGB": "Choose one animal focus. When you apply that animal focus to your animal companion, the benefits increase by one step. For example, if you are 6th level and choose the bear animal focus, then when you apply the animal focus to your animal companion, it gains a +4 enhancement bonus to Constitution instead of +2."
+    "enGB": "Choose one animal focus. When you apply that animal focus to your animal companion, the benefits increase by one step. For example, if you are 6th level and choose the bear animal focus, then when you apply the animal focus to your animal companion, it gains a +4 inherent bonus to Constitution instead of +2."
   },
   {
     "Key": "FavoredBull.Name",
@@ -268,7 +268,7 @@
   },
   {
     "Key": "TotemBeastBull.Description",
-    "enGB": "The creature gains a +2 enhancement bonus to Strength. This bonus increases to +4 at 8th level and +6 at 15th level."
+    "enGB": "The creature gains a +2 inherent bonus to Strength. This bonus increases to +4 at 8th level and +6 at 15th level."
   },
   {
     "Key": "TotemBeastBear.Name",
@@ -277,7 +277,7 @@
   },
   {
     "Key": "TotemBeastBear.Description",
-    "enGB": "The creature gains a +2 enhancement bonus to Constitution. This bonus increases to +4 at 8th level and +6 at 15th level."
+    "enGB": "The creature gains a +2 inherent bonus to Constitution. This bonus increases to +4 at 8th level and +6 at 15th level."
   },
   {
     "Key": "TotemBeastTiger.Name",
@@ -286,7 +286,7 @@
   },
   {
     "Key": "TotemBeastTiger.Description",
-    "enGB": "The creature gains a +2 enhancement bonus to Dexterity. This bonus increases to +4 at 8th level and +6 at 15th level."
+    "enGB": "The creature gains a +2 inherent bonus to Dexterity. This bonus increases to +4 at 8th level and +6 at 15th level."
   },
   {
     "Key": "TotemBeastFalcon.Name",
@@ -295,7 +295,7 @@
   },
   {
     "Key": "TotemBeastFalcon.Description",
-    "enGB": "The creature gains a +4 enhancement bonus to Perception. This bonus increases to +6 at 8th level and +8 at 15th level."
+    "enGB": "The creature gains a +4 inherent bonus to Perception. This bonus increases to +6 at 8th level and +8 at 15th level."
   },
   {
     "Key": "TotemBeastMonkey.Name",
@@ -304,7 +304,7 @@
   },
   {
     "Key": "TotemBeastMonkey.Description",
-    "enGB": "The creature gains a +4 enhancement bonus to Athletics. This bonus increases to +6 at 8th level and +8 at 15th level."
+    "enGB": "The creature gains a +4 inherent bonus to Athletics. This bonus increases to +6 at 8th level and +8 at 15th level."
   },
   {
     "Key": "TotemBeastStag.Name",
@@ -313,7 +313,7 @@
   },
   {
     "Key": "TotemBeastStag.Description",
-    "enGB": "The creature gains a +5 enhancement bonus to Movement Speed. This bonus increases to +10 at 8th level and +20 at 15th level."
+    "enGB": "The creature gains a +5 inherent bonus to Movement Speed. This bonus increases to +10 at 8th level and +20 at 15th level."
   },
   {
     "Key": "TotemBeastOwl.Name",
@@ -322,7 +322,7 @@
   },
   {
     "Key": "TotemBeastOwl.Description",
-    "enGB": "The creature gains a +4 enhancement bonus to Stealth. This bonus increases to +6 at 8th level and +8 at 15th level."
+    "enGB": "The creature gains a +4 inherent bonus to Stealth. This bonus increases to +6 at 8th level and +8 at 15th level."
   },
   {
     "Key": "TotemBeastMouse.Name",

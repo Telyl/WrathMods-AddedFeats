@@ -79,7 +79,6 @@ namespace AddedFeats.NewSpells
                 .AddAbilityEffectRunAction(
                     actions: ActionsBuilder.New()
                         .ApplyBuff(StrongJawBuff, ContextDuration.Variable(ContextValues.Rank(), rate: DurationRate.Minutes)))
-                .AddAbilityTargetHasFact(checkedFacts: new() { FeatureRefs.AnimalType.Reference.Get() } )
                 .Configure();
         }
     }
