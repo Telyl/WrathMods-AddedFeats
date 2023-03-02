@@ -8,6 +8,7 @@ using System;
 using BlueprintCore.Blueprints.CustomConfigurators.Classes;
 using Kingmaker.EntitySystem.Stats;
 using BlueprintCore.Blueprints.References;
+using BlueprintCore.Blueprints.CustomConfigurators.Classes.Selection;
 
 namespace AddedFeats.Feats
 {

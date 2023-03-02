@@ -8,7 +8,7 @@ namespace AddedFeats.Utils
 {
     internal static class Logging
     {
-        private const string BaseChannel = "COP";
+        private const string BaseChannel = "AF";
 
         private static readonly Dictionary<string, ModLogger> Loggers = new();
 

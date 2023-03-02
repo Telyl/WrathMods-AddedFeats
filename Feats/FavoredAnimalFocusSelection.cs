@@ -7,6 +7,7 @@ using static UnityModManagerNet.UnityModManager.ModEntry;
 using System;
 using BlueprintCore.Blueprints.CustomConfigurators.Classes;
 using BlueprintCore.Blueprints.References;
+using BlueprintCore.Blueprints.CustomConfigurators.Classes.Selection;
 
 namespace AddedFeats.Feats
 {

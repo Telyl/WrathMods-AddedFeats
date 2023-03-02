@@ -57,7 +57,7 @@ namespace AddedFeats.Feats.PlanarFoci
 
             FeatureConfigurator.For(EarthEffect)
                 .AddStatBonus(descriptor: ModifierDescriptor.NaturalArmorEnhancement, stat: StatType.AC, value: 2)
-                .AddManeuverBonus(2, descriptor: ModifierDescriptor.Other, false, CombatManeuver.BullRush)
+                .AddManeuverBonus(2, descriptor: ModifierDescriptor.Other, false, false, CombatManeuver.BullRush)
                 .AddManeuverDefenceBonus(2, descriptor: ModifierDescriptor.Other, CombatManeuver.BullRush)
                 .Configure();
 

@@ -18,6 +18,7 @@ using AddedFeats.Utils;
 using BlueprintCore.Blueprints.Configurators.Classes.Selection;
 using System;
 using static UnityModManagerNet.UnityModManager.ModEntry;
+using BlueprintCore.Blueprints.CustomConfigurators.Classes.Selection;
 
 namespace AddedFeats.Feats
 {
